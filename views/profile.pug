@@ -1,3 +1,8 @@
 extends layout.pug
 block content
-    h1 HI
+    .heading
+        h1 HI
+        if user
+            img(src=user.picture)
+        .add-account-link
+            a(href='accounts/add') Add a new account

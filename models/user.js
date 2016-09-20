@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     name: String,
     id: String,
     picture: String,
+    accounts: []
 })
 UserSchema.plugin(findOrCreate)
 module.exports.User = mongoose.model('users', UserSchema)

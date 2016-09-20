@@ -1,0 +1,20 @@
+[
+        {
+            "name": 'Netflix',"price": 11.99
+        },
+        {
+            "name": 'Hulu',"price": 7.99
+        },
+        {
+            "name": 'Hulu No Commercials',"price": 11.99
+        },
+        {
+            "name": 'Hulu + Showtime',"price": 16.98
+        },
+        {
+            "name": 'Hulu No Commercials + Showtime',"price": 20.98
+        },
+        {
+            "name": 'HBO Now',"price": 15.00
+        }
+    ]
