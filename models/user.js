@@ -4,8 +4,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const UserSchema = new mongoose.Schema({
     name: String,
     id: String,
-    picture: String,
-    accounts: []
+    picture: String
 })
 UserSchema.plugin(findOrCreate)
 module.exports.User = mongoose.model('users', UserSchema)

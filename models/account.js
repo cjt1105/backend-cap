@@ -6,7 +6,8 @@ const Account = mongoose.model('accounts', {
     password: String,
     owner: Number,
     price: Number,
-    canAccess: []
+    canAccess: [],
+    users: [],
 })
 
 module.exports = Account;

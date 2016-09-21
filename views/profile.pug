@@ -6,3 +6,6 @@ block content
             img(src=user.picture)
         .add-account-link
             a(href='accounts/add') Add a new account
+        #userAccounts
+            each account in accounts
+                a #{account.name}
