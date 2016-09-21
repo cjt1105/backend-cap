@@ -12,17 +12,20 @@ module.exports = (passport) => {
         clientID: config.facebookAuth.clientId,
         clientSecret: config.facebookAuth.clientSecret,
         callbackURL: config.facebookAuth.callbackUrl,
-        enableProof: config.facebookAuth.enableProof
+        enableProof: config.facebookAuth.enableProof,
+        profileFields: ['id', 'displayName', 'photos', 'friends'],
+        scope: ['user_friends']
     },
     (accessToken, refreshToken, profile, cb) => {
-        User.find({id: profile.id}, (user, err) => {
+        // console.log(profile)
+        User.findOne({id: profile.id}, (err, user) => {
             if (user) {
                 return cb(null, user)
             } else {
                 let newUser = {
                     id: profile.id,
                     name: profile.displayName,
-                    picture: `https ://scontent-b-hkg.xx.fbcdn.net/hphotos-prn2/t1.0-9/1322_${profile.id}_298175508_n.jpg`
+                    picture: profile.photos[0].value
                     }
                 User.create(newUser, (err,user) => {
                     if (err) return handleError
