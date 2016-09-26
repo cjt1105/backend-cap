@@ -1,11 +1,15 @@
 extends layout.pug
 block content
-    .heading
-        h1 HI
-        if user
-            img(src=user.picture)
-        .add-account-link
-            a(href='accounts/add') Add a new account
-        #userAccounts
-            each account in accounts
-                a #{account.name}
+    #topBlock
+        .heading
+            h1 HI #{user.name}
+            if user
+                img(src=user.picture)
+            .add-account-link
+                a(href='accounts/add') Add a new account
+            #userAccounts
+                each account in accounts
+                    .accountCard
+                        a(href=) #{account.name}
+    #middleBlock
+    a(href='/browse') Browse Users

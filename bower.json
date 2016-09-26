@@ -1,0 +1,23 @@
+{
+  "name": "backend-cap",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "CJT1105 <CJT1105@GMAIL.COM>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cjt1105/backend-cap",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-route": "^1.5.8"
+  }
+}
