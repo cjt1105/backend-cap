@@ -1,0 +1,8 @@
+<div class='heading'>
+    <h1> Welcome {{user.name}}</h1>
+
+    <div ng-repeat = 'account in userAccounts'>
+       <a ng-href="/user/accounts/{{account._id}}">{{account.name}}</a>
+    </div>
+    <a href="/accounts/add">add account</a>
+</div>

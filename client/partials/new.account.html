@@ -1,0 +1,14 @@
+<div class="heading">
+    <form method="POST" ng-submit='createAccount()'>
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="you@example.com" class="form-control" ng-model='email'/>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" class="form-control" ng-model='password'/>
+        <label for="account">Account type</label>
+        <select id="account" name="account" class="form-control" ng-model='account' ng-options='account as account.name + " " + account.price  for account in accountInfo'>
+        </select>
+         <div class="order-form__submit"><a href="/" class="btn btn-danger btn-lg">Cancel</a>
+            <input type="submit" value="Submit" class="btn btn-success btn-lg"/>
+        </div>
+    </form>
+</div>

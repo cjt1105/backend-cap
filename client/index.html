@@ -4,6 +4,13 @@
     <title>StreamBuddies</title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
+    <base href="/">
+    <script type="text/javascript">
+      if (window.location.hash && window.location.hash == '#_=_') {
+        window.location.hash = '/profile';
+      }
+    </script>
+    <script src='/lib/axios/dist/axios.min.js'></script>
   </head>
   <body>
     <div ng-app="streamBuddies">
@@ -18,5 +25,8 @@
     <script src="/lib/angular-route/angular-route.min.js"></script>
     <script src="/app/main.js"></script>
     <script src="/controllers/main.js"></script>
+    <script src="/controllers/profile.js"></script>
+    <script src="/controllers/new.account.js"></script>
+    <script src="/controllers/user.account.js"></script>
   </body>
 </html

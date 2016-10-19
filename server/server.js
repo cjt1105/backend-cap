@@ -4,7 +4,7 @@ const { connect } = require('./middlewares/config/db');
 const session = require('express-session')
 const router = require('./routes/routes.js');
 const passport = require('passport');
-const bodyParser = require('body-parser');
+const { json } = require('body-parser');
 const RedisStore = require('connect-redis')(session)
 
 
@@ -12,7 +12,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static('client'))
 app.use(passport.initialize());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(json())
 app.use(session({
     secret: 'keyboard cat',
     cookie: {secure: false},

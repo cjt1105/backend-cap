@@ -24,6 +24,6 @@ const shouldExchange = (date_exchanged) => {
     }
 }
 
-module.exports.getDate = todaysDate()
+module.exports.getDate = todaysDate
 
 module.exports.shouldExchange = shouldExchange
