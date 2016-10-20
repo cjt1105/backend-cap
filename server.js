@@ -18,7 +18,8 @@ app.use(session({
     secret: 'keyboard cat',
     cookie: {secure: false},
     store: new RedisStore({
-    url:  'redis://localhost:6379'
+    url:  'redis://localhost:6379',
+    resave: false
   })
 }))
 app.use(router)
