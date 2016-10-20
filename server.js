@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const { connect } = require('./middlewares/config/db');
+const { connect } = require('../server/middlewares/config/db');
 const session = require('express-session')
-const router = require('./routes/routes.js');
+const router = require('../server/routes/routes.js');
 const passport = require('passport');
 const { json } = require('body-parser');
 const RedisStore = require('connect-redis')(session)
