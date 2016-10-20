@@ -59,8 +59,10 @@ router.post('/accounts/add', (req,res) => {
     .then(account => console.log(account))
 })
 
-router.get('/api/user/account', (req, res) => {
-    console.log(params)
+router.get('/api/user/accounts/:id', (req, res) => {
+    const accountId = req.params.id;
+    Account.find({_id: accountId})
+    .then((account) => res.json(account))
 })
 
 router.get('/logout', (req,res) => {

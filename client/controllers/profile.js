@@ -3,7 +3,7 @@ angular.module('streamBuddies')
     $rootScope.user = null,
     $scope.userAccounts = null;
    axios.get('/api/user/accounts')
-   .then(({data}) => console.log(data))
+   .then(({data}) => $scope.userAccounts = data)
    axios.get('/api/user/info')
    .then(({data})=> {
        console.log(data)

@@ -7,6 +7,7 @@ const passport = require('passport');
 const { json } = require('body-parser');
 const RedisStore = require('connect-redis')(session)
 
+const port = process.env.PORT || 3000;
 
 app.set('view engine', 'pug');
 
@@ -26,7 +27,7 @@ app.use(router)
 
 connect()
 .then(()=>{
-    app.listen(3000);
+    app.listen(port);
     console.log('listening')
 })
 
