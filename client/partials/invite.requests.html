@@ -1,0 +1,8 @@
+<div class="heading">
+    <h1>My Requests</h1>
+    <div ng-repeat="request in accessRequests">
+        <h5>{{request.fromName}}</h5>
+        <button ng-click="acceptRequest(request.fromId, request.accountId)">Accept</button>
+        <button type="">Reject</button>
+    </div>
+</div>

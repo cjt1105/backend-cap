@@ -9,6 +9,7 @@ const auth = require('../middlewares/config/auth.js');
 const graph = require('fbgraph');
 const { getDate , shouldExchange } = require('../helpers/date')
 const request = require('request')
+const Invite = require('../models/invite');
 
 
 router.get('/', (req, res) => {
@@ -19,7 +20,6 @@ router.get('/', (req, res) => {
 router.get('/session', (req,res) => {
     console.log(req.session.passport)
 })
-
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
 
@@ -54,15 +54,33 @@ router.get('/accounts/populate', (req,res) => {
 })
 
 router.post('/accounts/add', (req,res) => {
-    req.body.owner = req.session.passport.user.id
+    req.body.owner = req.session.passport.user.id.toString()
     Account.create(req.body)
     .then(account => console.log(account))
 })
 
 router.get('/api/user/accounts/:id', (req, res) => {
     const accountId = req.params.id;
-    Account.find({_id: accountId})
-    .then((account) => res.json(account))
+    console.log(accountId)
+    const uid = req.session.passport.user.id
+    let canAccess = false
+    Account.findOne({_id: accountId})
+    .then((account) => {
+        if(account.owner.toString() === uid.toString()){
+            canAccess = true;
+            res.json(account)
+        } else {
+            if(account.canAccess.length > 0){
+                account.canAccess.forEach(item => {
+                    if(item.toString() === uid.toString()){
+                        res.json(account)
+                    }
+                })
+            } else {
+                res.json({message: null})
+            }
+        }
+    })
 })
 
 router.get('/logout', (req,res) => {
@@ -77,6 +95,47 @@ router.get('/me', (req,res) => {
     request(`https://graph.facebook.com/me/friends?access_token=${req.session.passport.user.access_token}`, (err, response, body) => {
        res.send(body)
     })
+})
+
+router.get('/api/accounts/invite/:id', (req,res) => {
+    Account.findOne({_id: req.params.id})
+    .then(account => {
+        const response = {name: account.name, owner: account.owner}
+        res.json(response)
+    })
+})
+
+router.patch('/api/accounts/addUser', (req,res) => {
+    const conditions ={
+        _id: req.body.accountId
+    }
+    const updates = {
+        $addToSet: {
+            canAccess: req.body.userToAdd
+        }
+    }
+    Account.update(conditions, updates)
+    .then(account => console.log(account))
+    
+})
+
+router.post('/api/invites', (req,res) => {
+    const invite = {
+        fromId: req.session.passport.user.id,
+        fromName: req.session.passport.user.name,
+        toId: req.body.toId,
+        accountId: req.body.accountId
+    }
+    console.log(invite)
+    Invite.create(invite)
+    .then(_invite => console.log(invite))
+})
+
+router.get('/api/invites', (req,res) => {
+    Invite.find({
+        toId: req.session.passport.user.id
+    })
+    .then(invites => res.json(invites))
 })
 
   module.exports = router;

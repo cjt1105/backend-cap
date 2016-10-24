@@ -25,9 +25,13 @@ angular.module('streamBuddies', ['ngRoute'])
         controller: 'UserAccountCtrl',
         templateUrl: 'partials/user.account.html'
       })
-
-
-
-      $locationProvider.html5Mode(true)
+       .when('/user/accounts/invite/:id', {
+         controller: 'AccountInviteCtrl',
+         templateUrl: 'partials/account.invite.html'
+       })
+        .when('/invites', {
+         controller: 'InviteRequestsCtrl',
+         templateUrl: 'partials/invite.requests.html'
+       })
 
 })

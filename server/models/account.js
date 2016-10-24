@@ -4,7 +4,7 @@ const Account = mongoose.model('accounts', {
     name: String,
     email: String,
     password: String,
-    owner: Number,
+    owner: String,
     price: Number,
     canAccess: [],
     users: Number

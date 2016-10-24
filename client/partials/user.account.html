@@ -1,4 +1,9 @@
 <div class="heading">
-    <h1>BITCHHHHHH</h1>
-    <a ng-click="share()">Share</a>
+    <h3>{{message}}</h3>
+    <h1>{{myAccount.name}}</h1>
+    <h3>{{myAccount.email}}</h3>
+    <h3>{{myAccount.password}}</h3>
+    <h3>{{myAccount._id}}</h3>
+    <a ng-show="ownsAccount" ng-click="share()">Share</a>
+    <a ng-show="ownsAccount" ng-href="#/user/accounts/invite/{{myAccount._id}}">invite page</a>
 </div>
