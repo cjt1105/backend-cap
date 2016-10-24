@@ -30,7 +30,7 @@ app_id=975145692596976
 &picture=https://lh4.googleusercontent.com/BbqN8GpAephpCNwTBuB8SiFTPT1zFccYyuPd4qRRQRTQPXU5d4F1wuVWfEJh3L4RL3wIKc6BeQ=s640-h400-e365
 &caption=Join%20my%20Netflix%20account
 &description=Checkout%20the%20description
-&actions={name:"streambuddies",link:"https://still-ocean-92666.herokuapp.com/"}`
+&actions={name:"streambuddies"}`
 
         window.open(url, '_blank');
     }
