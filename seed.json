@@ -1,5 +1,0 @@
-{
-	"undefined": "mongodb://cjt1105:vols1105@ds033076.mlab.com:33076/streambuddies",
-	"dev": "mongodb://cjt1105:vols1105@ds033076.mlab.com:33076/streambuddies",
-	"prod": "mongodb://cjt1105:vols1105@ds033076.mlab.com:33076/streambuddies"
-}

@@ -5,14 +5,15 @@ angular.module('streamBuddies')
 
     axios.get(`/api/user/accounts/${$routeParams.id}`)
     .then(({data}) => {
-        $scope.myAccount = data;
-        $scope.$apply()
         if(data.message === null){
             setTimeout(function() {
                 console.log('fuck')
                 $location.url(`/`)
             }, 2000);
         }
+        $scope.myAccount = data;
+        $scope.ownsAccount = true;
+        $scope.$apply()
     })
 
 
@@ -25,7 +26,7 @@ angular.module('streamBuddies')
 let url = `https://www.facebook.com/dialog/feed?
 app_id=975145692596976
 &redirect_uri=https://still-ocean-92666.herokuapp.com/
-&link=https://still-ocean-92666.herokuapp.com/
+&link=https://still-ocean-92666.herokuapp.com/%23/user/accounts/invite/${$routeParams.id}
 &picture=https://lh4.googleusercontent.com/BbqN8GpAephpCNwTBuB8SiFTPT1zFccYyuPd4qRRQRTQPXU5d4F1wuVWfEJh3L4RL3wIKc6BeQ=s640-h400-e365
 &caption=Join%20my%20Netflix%20account
 &description=Checkout%20the%20description
