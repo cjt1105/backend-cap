@@ -19,7 +19,8 @@ app.use(session({
     cookie: {secure: false},
     store: new RedisStore({
     url:  'redis://localhost:6379',
-    resave: false
+    resave: true,
+    saveUninitialized: true
   })
 }))
 app.use(router)
