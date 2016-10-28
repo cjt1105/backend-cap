@@ -260,13 +260,13 @@ router.post('/stripe/events', (req, res) => {
     const invoicePrice = req.body.data.object.amount_due
     // const planId = req.body.data.object.lines.data.plan.id
     console.log(req.body.data.object.lines.data[0])
-    const conditions = { plan: planId}
-    Account.findOne(conditions)
-    .then((account) => {
-        const adjustedPrice = Math.floor((account.price/account.users) * 100)
-        console.log(adjustedPrice)
-        res.send(200)
-    })
+    // const conditions = { plan: planId}
+    // Account.findOne(conditions)
+    // .then((account) => {
+    //     const adjustedPrice = Math.floor((account.price/account.users) * 100)
+    //     console.log(adjustedPrice)
+    //     res.send(200)
+    // })
 })
 
   module.exports = router;
