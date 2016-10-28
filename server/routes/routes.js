@@ -262,7 +262,7 @@ router.post('/stripe/events', (req, res) => {
     const conditions = { plan: planId}
     const type = req.body.type
     console.log(type)
-    if(tyoe === 'invoice.created'){
+    if(type === 'invoice.created'){
          Account.findOne(conditions)
         .then((account) => {
             const adjustedPrice = Math.floor((account.price/account.users) * 100)
