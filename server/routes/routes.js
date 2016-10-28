@@ -255,16 +255,16 @@ router.post('/stripe/events', (req, res) => {
             } else {
                 const creditToAdd = adjustedPrice - invoicePrice;
                 console.log(creditToAdd)
-                    // stripe.invoiceItems.create({
-                    //     customer: customer,
-                    //     amount: creditToAdd,
-                    //     currency: 'usd'
-                    // }, {stripe_account: stripeUser },(err, item) => {
-                    //     if(err){
-                    //         console.log(err)
-                    //     }
-                    //     console.log(item)
-                    // })
+                    stripe.invoiceItems.create({
+                        customer: customer,
+                        amount: creditToAdd,
+                        currency: 'usd'
+                    }, {stripe_account: stripeUser },(err, item) => {
+                        if(err){
+                            console.log(err)
+                        }
+                        console.log(item)
+                    })
             }
         })
     }
