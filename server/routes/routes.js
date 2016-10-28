@@ -258,7 +258,8 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 router.post('/stripe/events', (req, res) => {
     const invoiceId = req.body.data.object.id
     const invoicePrice = req.body.data.object.amount_due
-    const planId = req.body.data.object.lines.data.plan.id
+    // const planId = req.body.data.object.lines.data.plan.id
+    console.log(req.body.data.object.lines.data[0])
     const conditions = { plan: planId}
     Account.findOne(conditions)
     .then((account) => {
