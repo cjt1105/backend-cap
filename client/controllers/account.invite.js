@@ -6,10 +6,11 @@ angular.module('streamBuddies')
         $scope.userAccount = data
     })
 
-    $scope.sendInviteRequest = (id) => {
+    $scope.sendInviteRequest = (id, planId) => {
         const body = {
             toId: id,
-            accountId: $routeParams.id
+            accountId: $routeParams.id,
+            planId: planId
         }
         $http.post('/api/invites', body)
     }

@@ -4,12 +4,14 @@
     <title>StreamBuddies</title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/lib/angular-material/angular-material.css">
     <script type="text/javascript">
       if (window.location.hash && window.location.hash == '#_=_') {
         window.location.hash = '/profile';
       }
     </script>
     <script src='/lib/axios/dist/axios.min.js'></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   </head>
   <body>
     <div ng-app="streamBuddies">
@@ -21,6 +23,9 @@
     </div>
     
     <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-aria/angular-aria.js"></script>
+    <script src="/lib/angular-animate/angular-animate.js"></script>
+    <script src="/lib/angular-material/angular-material.js"></script>
     <script src="/lib/angular-route/angular-route.min.js"></script>
     <script src="/app/main.js"></script>
     <script src="/controllers/main.js"></script>
@@ -29,5 +34,6 @@
     <script src="/controllers/user.account.js"></script>
     <script src="/controllers/account.invite.js"></script>
     <script src="/controllers/invite.requests.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
   </body>
 </html

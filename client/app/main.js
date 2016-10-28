@@ -1,5 +1,8 @@
-angular.module('streamBuddies', ['ngRoute'])
+angular.module('streamBuddies', ['ngRoute','ngMaterial'])
 .config(($routeProvider, $locationProvider) => {
+
+    Stripe.setPublishableKey('pk_test_P7IISvg1rGVep3YH7nihAvka');
+
     $routeProvider
       .when('/', {
         controller: 'MainCtrl',
@@ -33,5 +36,6 @@ angular.module('streamBuddies', ['ngRoute'])
          controller: 'InviteRequestsCtrl',
          templateUrl: 'partials/invite.requests.html'
        })
+
 
 })

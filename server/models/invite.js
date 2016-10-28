@@ -5,7 +5,8 @@ const Invite = mongoose.model('invites', {
     toName: String,
     fromId: Number,
     toId: Number,
-    accountId: String
+    accountId: String,
+    planId: String
 })
 
 module.exports = Invite

@@ -19,7 +19,7 @@ angular.module('streamBuddies')
             password: $scope.password,
             price: $scope.account.price,
             canAccess: [],
-            users: 1
+            users: 1,
         }
 
         axios.post('accounts/add', account)

@@ -5,7 +5,9 @@ const UserSchema = new mongoose.Schema({
     id: String,
     picture: String,
     access_token: String,
-    token_exchanged: Date
+    token_exchanged: Date,
+    stripeId: String,
+    customerId: String
 })
 
 module.exports.User = mongoose.model('users', UserSchema)

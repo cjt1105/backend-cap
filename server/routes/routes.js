@@ -10,6 +10,7 @@ const graph = require('fbgraph');
 const { getDate , shouldExchange } = require('../helpers/date')
 const request = require('request')
 const Invite = require('../models/invite');
+const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
 
 
 router.get('/', (req, res) => {
@@ -18,7 +19,22 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-    console.log(req.session.passport)
+    var StripeMockWebhooks = require('stripe-mock-webhooks')
+ 
+// Tell the server where it should send events 
+var webhooks = new StripeMockWebhooks({
+  url: 'http://localhost:3000/stripe/events'
+})
+
+webhooks.trigger('invoice.created', {
+  data: {
+    object: {
+      plan: {
+        id: 'Hulu_10154683355224683'
+      }
+    }
+  }
+})
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
@@ -54,9 +70,37 @@ router.get('/accounts/populate', (req,res) => {
 })
 
 router.post('/accounts/add', (req,res) => {
-    req.body.owner = req.session.passport.user.id.toString()
+    const planId = `${req.body.name}_${req.session.passport.user.id}`
+    req.body.owner = req.session.passport.user.id.toString();
+    req.body.plan = planId;
     Account.create(req.body)
-    .then(account => console.log(account))
+    .then(account => {
+        let stripeId;
+        User.findOne({id: req.session.passport.user.id})
+        .then(user => {
+            stripeId = user.stripeId
+        })
+        .then(() => {
+            let total = Math.round((account.price/2)*100)
+            stripe.plans.create({
+            amount: total,
+            interval: "month",
+            name: planId,
+            id: planId,
+            currency: 'usd',
+            trial_period_days: 1,
+
+        }, {stripe_account: stripeId}, (err,plan) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log(plan)
+            }
+        })
+        })
+    })
+    res.end()
 })
 
 router.get('/api/user/accounts/:id', (req, res) => {
@@ -100,7 +144,7 @@ router.get('/me', (req,res) => {
 router.get('/api/accounts/invite/:id', (req,res) => {
     Account.findOne({_id: req.params.id})
     .then(account => {
-        const response = {name: account.name, owner: account.owner}
+        const response = {name: account.name, owner: account.owner, plan: account.plan}
         res.json(response)
     })
 })
@@ -109,26 +153,30 @@ router.patch('/api/accounts/addUser', (req,res) => {
     const conditions ={
         _id: req.body.accountId
     }
-    const updates = {
-        $addToSet: {
-            canAccess: req.body.userToAdd
-        }
-    }
-    Account.update(conditions, updates)
-    .then(account => console.log(account))
-    
+
+    Account.update(conditions, {$addToSet: { canAccess: req.body.userToAdd}})
+    .then(account => {
+        Account.update(conditions, { $inc: { users: 1}})
+        .then((_account) => {
+            res.send(200)
+        })
+    })
+
 })
 
 router.post('/api/invites', (req,res) => {
+    const fromId = req.session.passport.user.id
     const invite = {
-        fromId: req.session.passport.user.id,
+        fromId: fromId.toString(),
         fromName: req.session.passport.user.name,
         toId: req.body.toId,
-        accountId: req.body.accountId
+        accountId: req.body.accountId,
+        planId: req.body.planId
     }
     console.log(invite)
     Invite.create(invite)
-    .then(_invite => console.log(invite))
+    .then(_invite => res.end())
+
 })
 
 router.get('/api/invites', (req,res) => {
@@ -136,6 +184,88 @@ router.get('/api/invites', (req,res) => {
         toId: req.session.passport.user.id
     })
     .then(invites => res.json(invites))
+})
+
+router.post('/api/stripe/createUser', (req,res) => {
+    console.log(req.body)
+    const token = req.body.tos_acceptance.date;
+    req.body.tos_acceptance.date = Math.floor(Date.now() / 1000);
+    req.body.tos_acceptance.ip = req.connection.remoteAddress;
+    // create new account
+        let updates = {};
+        const conditions = {id: req.session.passport.user.id};
+        stripe.customers.create({
+            source: token,
+            description: `${req.body.legal_entity.first_name} ${req.body.legal_entity.last_name}`
+        }, (err, customer) => {
+            if(err){
+                console.log(err)
+            }
+            // req.body.external_account = customer.default_source
+            stripe.tokens.create({card: customer.default_source })
+            updates.customerId = customer.id
+
+            stripe.accounts.create(req.body, (err, account) => {
+                if(err) {
+                    console.log(err)
+                }
+                console.log(account)
+                updates.stripeId = account.id
+                console.log(updates)
+                User.update(conditions,updates)
+                .then(_user => console.log('mongo', _user))
+        })
+    })
+    res.end()
+})
+
+router.post('/api/accounts/subscribeUser', (req,res) => {
+    User.findOne({id: req.body.senderId})
+    .then(user => {
+        stripe.tokens.create({
+            customer: `${user.customerId}`
+        },{stripe_account: req.session.passport.user.stripeId}, (err, token) => {
+            if(err) {
+                console.log(err)
+            }
+            stripe.customers.create({
+                source: token.id,
+                description: `${req.body.senderName}`
+            },{stripe_account: req.session.passport.user.stripeId}, (err, customer) => {
+                if(err) {
+                    console.log(err)
+                }
+                else {
+                    stripe.subscriptions.create({
+                        customer: `${customer.id}`,
+                        plan: `${req.body.planId}`,
+                    }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
+                        if(err) {
+                            console.log(err)
+                        }
+                        console.log(subscription)
+                        res.end()
+                    })
+                }
+            })
+        })
+    })
+})
+
+// Require 
+
+
+router.post('/stripe/events', (req, res) => {
+    const invoiceId = req.body.data.object.id
+    const invoicePrice = req.body.data.object.amount_due
+    const planId = req.body.data.object.plan.id
+    const conditions = { plan: planId}
+    Account.findOne(conditions)
+    .then((account) => {
+        const adjustedPrice = Math.floor((account.price/account.users) * 100)
+        console.log(adjustedPrice)
+        res.end()
+    })
 })
 
   module.exports = router;

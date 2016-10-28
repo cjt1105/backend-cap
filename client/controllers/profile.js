@@ -1,5 +1,5 @@
 angular.module('streamBuddies')
-.controller('ProfileCtrl', function($scope, $rootScope) {
+.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http) {
     $rootScope.user = null,
     $scope.userAccounts = null;
    axios.get('/api/user/accounts')
@@ -14,4 +14,148 @@ angular.module('streamBuddies')
     .then(({data}) => {
         console.log(data.data)
     })
+
+
+    function DialogController($scope, $mdDialog, items) {
+        $scope.items = items;
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+
+        }
+
+          $scope.submit = () => {
+
+              const cardDetails = {
+                  number: $scope.number,
+                  cvc: $scope.cvc,
+                  exp_month: $scope.exp_month,
+                  exp_year: $scope.exp_year,
+                  address_city: $scope.city,
+                  address_country: $scope.country,
+                  currency: 'usd'
+              }
+              Stripe.card.createToken(cardDetails, (status, response) => {
+                    if (response.error) { // Problem!
+
+                    }
+                    else {
+                        Stripe.createToken(cardDetails, (stat, res) => {
+                            const user = {
+                            external_account: response.id,
+                            tos_acceptance: {date: res.id},
+                            managed: true,
+                            legal_entity: {
+                                first_name: $scope.firstName,
+                                last_name: $scope.lastName,
+                                type: 'individual',
+                                address: {
+                                    city: $scope.city,
+                                    country: $scope.country,
+                                    line1: $scope.address,
+                                    postal_code: $scope.zip
+                                },
+                                dob: {
+                                    day: $scope.birthDay,
+                                    month: $scope.birthMonth,
+                                    year: $scope.birthYear
+                                }
+                            }
+                        }
+                        $http.post('/api/stripe/createUser', user)
+                        })
+                    }
+              })
+           }
+}
+
+
+
+
+    $scope.showPrompt = function(ev) {
+
+        var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: ev,
+         template:
+            '<md-dialog aria-label="List dialog">' +
+            '  <md-dialog-content>'+
+            '<md-tab>'+
+            '<md-tab-label>My Tab content</md-tab-label>'+
+            '</md-tab>'+
+            '<form method="POST" ng-model="cardForm">'+
+                '  <md-input-container>'+
+                    '<label>Card Number</label>'+
+                    '<input data-stripe="number" ng-model="number">'+
+                '  </md-input-container>'+
+                '  <md-input-container>'+
+                    '<label>Expiration Month</label>'+
+                    '<input data-stripe="exp_month" ng-model="exp_month">'+
+                '  </md-input-container>'+
+                '  <md-input-container>'+
+                    '<label>Expiration Year</label>'+
+                    '<input data-stripe="exp_year" ng-model="exp_year">'+
+                '  </md-input-container>'+
+                '  <md-input-container>'+
+                    '<label>CVC</label>'+
+                    '<input data-stripe="cvc" ng-model="cvc">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>First name</label>'+
+                    '<input ng-model="firstName">'+
+                 '  </md-input-container>'+
+                  '  <md-input-container>'+
+                    '<label>Last name</label>'+
+                    '<input ng-model="lastName">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Country</label>'+
+                    '<input ng-model="country">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Address</label>'+
+                    '<input ng-model="address">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Zip Code</label>'+
+                    '<input ng-model="zip">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>City</label>'+
+                    '<input ng-model="city">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Birth Day</label>'+
+                    '<input ng-model="birthDay">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Birth Month</label>'+
+                    '<input ng-model="birthMonth">'+
+                 '  </md-input-container>'+
+                 '  <md-input-container>'+
+                    '<label>Birth Year</label>'+
+                    '<input ng-model="birthYear">'+
+                 '  </md-input-container>'+
+            '</form>'+
+             '  </md-dialog-content>' +
+           '  <md-dialog-actions>' +
+           '    <md-button ng-click="submit()" class="md-primary">' +
+           '      Submit' +
+           '    </md-button>' +
+           '    <md-button ng-click="closeDialog()" class="md-primary">' +
+           '      Close Dialog' +
+           '    </md-button>' +
+           '  </md-dialog-actions>' +
+           '    <p> By submitting, you agree to out <a>Service Agreement</a> and the <a href="https://stripe.com/us/legal/">Stripe Connected Account Agreement</a>'+
+           '</md-dialog>',
+
+         
+         locals: {
+           items: $scope.items
+         },
+         controller: DialogController
+      });
+
+  };
+
 })
