@@ -253,14 +253,15 @@ router.post('/stripe/events', (req, res) => {
         const invoicePrice = req.body.data.object.amount_due
         const planId = req.body.data.object.lines.data[0].plan.id
         const conditions = { plan: planId}
-
+        const customer = req.body.data.object.lines.data[0].invoice.customer
+        console.log(customer)
          Account.findOne(conditions)
         .then((account) => {
             const adjustedPrice = Math.floor((account.price/account.users) * 100)
             if(invoicePrice === adjustedPrice){
                 res.send(200)
             } else {
-                res.send(300)
+                stripe
             }
         })
     }
