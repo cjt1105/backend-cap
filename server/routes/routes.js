@@ -253,7 +253,7 @@ router.post('/stripe/events', (req, res) => {
         const invoicePrice = req.body.data.object.amount_due
         const planId = req.body.data.object.lines.data[0].plan.id
         const conditions = { plan: planId}
-        const customer = req.body.data.object.lines.data[0].invoice.customer
+        const customer = req.body.data.object.lines.data[0]
         console.log(customer)
          Account.findOne(conditions)
         .then((account) => {
