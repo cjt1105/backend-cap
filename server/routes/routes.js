@@ -19,12 +19,16 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-    stripe.invoices.create({
+    stripe.invoiceItems.create({
         customer: 'cus_9SarGakp9kQSBB',
-        data: {
-
+        amount: 599,
+        currency: 'usd'
+    }, {stripe_account: 'acct_199drQCN9cSLtWem'},(err, item) => {
+        if(err){
+            console.log(err)
         }
-    }, {stripe_account: 'acct_199drQCN9cSLtWem'})
+        console.log(item)
+    })
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
@@ -243,7 +247,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
-    console.log('yo')
+    console.log(req.body)
     if(req.body.type === 'invoice.created'){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
