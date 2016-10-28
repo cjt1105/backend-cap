@@ -258,13 +258,13 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 router.post('/stripe/events', (req, res) => {
     const invoiceId = req.body.data.object.id
     const invoicePrice = req.body.data.object.amount_due
-    const planId = req.body.data.object.plan.id
+    const planId = req.body.data.object.lines.data.plan.id
     const conditions = { plan: planId}
     Account.findOne(conditions)
     .then((account) => {
         const adjustedPrice = Math.floor((account.price/account.users) * 100)
         console.log(adjustedPrice)
-        res.end()
+        res.send(200)
     })
 })
 
