@@ -19,22 +19,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-    var StripeMockWebhooks = require('stripe-mock-webhooks')
- 
-// Tell the server where it should send events 
-var webhooks = new StripeMockWebhooks({
-  url: 'http://localhost:3000/stripe/events'
-})
-
-webhooks.trigger('invoice.created', {
-  data: {
-    object: {
-      plan: {
-        id: 'Hulu_10154683355224683'
-      }
-    }
-  }
-})
+    
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
@@ -252,23 +237,23 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
     })
 })
 
-// Require 
-
-
 router.post('/stripe/events', (req, res) => {
-    const invoiceId = req.body.data.object.id
-    const invoicePrice = req.body.data.object.amount_due
-    const planId = req.body.data.object.lines.data[0].plan.id
-    const conditions = { plan: planId}
     const type = req.body.type
-    console.log(type)
+
     if(type === 'invoice.created'){
+        const invoiceId = req.body.data.object.id
+        const invoicePrice = req.body.data.object.amount_due
+        const planId = req.body.data.object.lines.data[0].plan.id
+        const conditions = { plan: planId}
+
          Account.findOne(conditions)
         .then((account) => {
             const adjustedPrice = Math.floor((account.price/account.users) * 100)
-            console.log("before", invoicePrice)
-            console.log("after", adjustedPrice)
-            res.send(200)
+            if(invoicePrice === adjustedPrice){
+                res.send(200)
+            } else {
+
+            }
         })
     }
 })
