@@ -19,16 +19,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-    stripe.invoiceItems.create({
-        customer: 'cus_9SarGakp9kQSBB',
-        amount: 599,
-        currency: 'usd'
-    }, {stripe_account: 'acct_199drQCN9cSLtWem'},(err, item) => {
-        if(err){
-            console.log(err)
-        }
-        console.log(item)
-    })
+
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
@@ -247,21 +238,33 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
-    // console.log(req.body)
+
     if(req.body.type === 'invoice.created'){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
         const planId = req.body.data.object.lines.data[0].plan.id
         const conditions = { plan: planId}
         const customer = req.body.data.object.customer
-        console.log(customer)
+        const stripeUser = req.body.user_id
+        console.log(stripeUser)
          Account.findOne(conditions)
         .then((account) => {
             const adjustedPrice = Math.floor((account.price/account.users) * 100)
             if(invoicePrice === adjustedPrice){
                 res.send(200)
             } else {
-                res.send(300)
+                const creditToAdd = adjustedPrice - invoicePrice;
+                console.log(creditToAdd)
+                    // stripe.invoiceItems.create({
+                    //     customer: customer,
+                    //     amount: creditToAdd,
+                    //     currency: 'usd'
+                    // }, {stripe_account: stripeUser },(err, item) => {
+                    //     if(err){
+                    //         console.log(err)
+                    //     }
+                    //     console.log(item)
+                    // })
             }
         })
     }
