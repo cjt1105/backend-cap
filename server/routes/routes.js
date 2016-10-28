@@ -259,7 +259,7 @@ router.post('/stripe/events', (req, res) => {
     const invoiceId = req.body.data.object.id
     const invoicePrice = req.body.data.object.amount_due
     // const planId = req.body.data.object.lines.data.plan.id
-    console.log(req.body.data.object.lines.data[0])
+    console.log(req.body.data.object.lines.data[0].plan.id)
     // const conditions = { plan: planId}
     // Account.findOne(conditions)
     // .then((account) => {
@@ -267,6 +267,7 @@ router.post('/stripe/events', (req, res) => {
     //     console.log(adjustedPrice)
     //     res.send(200)
     // })
+    res.send(200)
 })
 
   module.exports = router;
