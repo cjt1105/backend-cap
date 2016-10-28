@@ -247,7 +247,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     if(req.body.type === 'invoice.created'){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
