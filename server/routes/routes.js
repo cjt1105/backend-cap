@@ -238,7 +238,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
-
+    console.log('event!!!!!', req.body)
     if(req.body.type === 'invoice.created'){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
@@ -254,7 +254,6 @@ router.post('/stripe/events', (req, res) => {
                 res.send(200)
             } else {
                 const creditToAdd = adjustedPrice - invoicePrice;
-                console.log(creditToAdd)
                     stripe.invoiceItems.create({
                         customer: customer,
                         amount: creditToAdd,
@@ -263,7 +262,6 @@ router.post('/stripe/events', (req, res) => {
                         if(err){
                             console.log(err)
                         }
-                        console.log(item)
                         res.send(200)
                     })
             }
