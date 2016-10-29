@@ -267,6 +267,9 @@ router.post('/stripe/events', (req, res) => {
             }
         })
     }
+    else {
+        res.send(200)
+    }
 })
 
   module.exports = router;
