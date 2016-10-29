@@ -264,6 +264,7 @@ router.post('/stripe/events', (req, res) => {
                             console.log(err)
                         }
                         console.log(item)
+                        res.send(200)
                     })
             }
         })
