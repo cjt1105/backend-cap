@@ -72,8 +72,7 @@ router.post('/accounts/add', (req,res) => {
             interval: "month",
             name: planId,
             id: planId,
-            currency: 'usd',
-            trial_period_days: 1,
+            currency: 'usd'
 
         }, {stripe_account: stripeId}, (err,plan) => {
             if (err) {
