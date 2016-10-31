@@ -244,8 +244,20 @@ router.post('/stripe/events', (req, res) => {
     // console.log('event_hoe!!!', req.body)
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
-        const planId = req.body.data.object.plan.id
-        console.log(planId)
+        // const planId = req.body.data.object.plan.id
+        stripe.subscriptions.update(
+            `${subscriptionId}`,
+            {
+                trial_end: now
+            },
+            (err, subscription) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    console.log(subscription)
+                }
+            }
+        )
     }
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
         const invoiceId = req.body.data.object.id
