@@ -248,7 +248,7 @@ router.post('/stripe/events', (req, res) => {
         stripe.subscriptions.update(
             `${subscriptionId}`,
             {
-                trial_end: now
+                trial_end: 'now'
             },
             (err, subscription) => {
                 if(err) {
