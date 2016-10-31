@@ -207,52 +207,34 @@ router.post('/api/stripe/createUser', (req,res) => {
 router.post('/api/accounts/subscribeUser', (req,res) => {
     User.findOne({id: req.body.senderId})
     .then(user => {
-        const stripeAccount= req.session.passport.user.stripeId
-        console.log(user.stripeAccount)
-        if( user.stripeAccount === null || undefined ) {
-            stripe.tokens.create({
-                customer: `${user.customerId}`
-            },{stripe_account: req.session.passport.user.stripeId}, (err, token) => {
+        stripe.tokens.create({
+            customer: `${user.customerId}`
+        },{stripe_account: req.session.passport.user.stripeId}, (err, token) => {
+            if(err) {
+                console.log(err)
+            }
+            stripe.customers.create({
+                source: token.id,
+                description: `${req.body.senderName}`
+            },{stripe_account: req.session.passport.user.stripeId}, (err, customer) => {
                 if(err) {
                     console.log(err)
                 }
-                stripe.customers.create({
-                    source: token.id,
-                    description: `${req.body.senderName}`
-                },{stripe_account: req.session.passport.user.stripeId}, (err, customer) => {
-                    if(err) {
-                        console.log(err)
-                    }
-                    else {
-                        // stripe.subscriptions.create({
-                        //     customer: `${customer.id}`,
-                        //     plan: `${req.body.planId}`,
-                        //     trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
-                        // }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
-                        //     if(err) {
-                        //         console.log(err)
-                        //     }
-                        //     console.log(subscription)
-                        //     res.end()
-                        // })
-                        console.log('hey!!!')
+                else {
+                    stripe.subscriptions.create({
+                        customer: `${customer.id}`,
+                        plan: `${req.body.planId}`,
+                        trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
+                    }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
+                        if(err) {
+                            console.log(err)
+                        }
+                        console.log(subscription)
                         res.end()
-                    }
-                })
-            })
-        } else {
-            stripe.subscriptions.create({
-                customer: `${user.customerId}`,
-                plan: `${req.body.planId}`,
-                trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
-            }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
-                if(err) {
-                    console.log(err)
+                    })
                 }
-                console.log(subscription)
-                res.end()
             })
-        }
+        })
     })
 })
 
