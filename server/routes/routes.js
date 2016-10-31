@@ -294,6 +294,10 @@ router.post('/stripe/events', (req, res) => {
                 }
             })
         }
+        else {
+            console.log(req.body)
+            res.send(200)
+        }
     }
     else {
         // res.send(200)
