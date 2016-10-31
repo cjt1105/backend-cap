@@ -265,33 +265,35 @@ router.post('/stripe/events', (req, res) => {
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
-        const planId = req.body.data.object.lines.data[0].plan.id;
+        const planId = req.body.data.object.lines.data[0].plan.id || null
         const conditions = { plan: planId}
         const customer = req.body.data.object.customer
         const stripeUser = req.body.user_id
         // console.log(stripeUser)
-         Account.findOne(conditions)
-        .then((account) => {
-            const adjustedPrice = Math.floor((account.price/account.users) * 100)
-            if(invoicePrice === adjustedPrice){
-                res.send(200)
-            } else {
-                const creditToAdd = adjustedPrice - invoicePrice;
-                console.log("credit!!!!", creditToAdd)
-                    stripe.invoiceItems.create({
-                        customer: customer,
-                        amount: creditToAdd,
-                        currency: 'usd',
-                        invoice: invoiceId
-                    }, {stripe_account: stripeUser },(err, item) => {
-                        if(err){
-                            console.log(err)
-                        }
-                        console.log(item)
-                        res.send(200)
-                    })
-            }
-        })
+        if(planId != null) {
+            Account.findOne(conditions)
+            .then((account) => {
+                const adjustedPrice = Math.floor((account.price/account.users) * 100)
+                if(invoicePrice === adjustedPrice){
+                    res.send(200)
+                } else {
+                    const creditToAdd = adjustedPrice - invoicePrice;
+                    console.log("credit!!!!", adjustedPrice, invoicePrice)
+                        stripe.invoiceItems.create({
+                            customer: customer,
+                            amount: creditToAdd,
+                            currency: 'usd',
+                            invoice: invoiceId
+                        }, {stripe_account: stripeUser },(err, item) => {
+                            if(err){
+                                console.log(err)
+                            }
+                            console.log(item)
+                            res.send(200)
+                        })
+                }
+            })
+        }
     }
     else {
         // res.send(200)
