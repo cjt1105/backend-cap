@@ -222,16 +222,15 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     console.log(err)
                 }
                 else {
-                    console.log('timestamp!!!!', Math.floor(timestamp.now() + 15 ))
+                    // console.log('timestamp!!!!', Math.floor(timestamp.now() + 15 ))
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
-                        plan: `${req.body.planId}`,
-                        trial_end: `${Math.floor(timestamp.now() + 1 )}`
+                        plan: `${req.body.planId}`
                     }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
                         if(err) {
                             console.log(err)
                         }
-                        console.log(subscription)
+                        // console.log(subscription)
                         res.end()
                     })
                 }
