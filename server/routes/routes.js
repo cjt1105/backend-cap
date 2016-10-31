@@ -207,7 +207,8 @@ router.post('/api/stripe/createUser', (req,res) => {
 router.post('/api/accounts/subscribeUser', (req,res) => {
     User.findOne({id: req.body.senderId})
     .then(user => {
-        if( user.`${req.session.passport.user.stripeId}` === null || undefined ) {
+        const stripeAccount= req.session.passport.user.stripeId
+        if( user.stripeAccount === null || undefined ) {
             stripe.tokens.create({
                 customer: `${user.customerId}`
             },{stripe_account: req.session.passport.user.stripeId}, (err, token) => {
