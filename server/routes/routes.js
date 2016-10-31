@@ -258,10 +258,9 @@ router.post('/stripe/events', (req, res) => {
         )
     }
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
-        console.log("check it", req.body.data.object.lines.data[0].plan.id)
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
-        const planId = req.body.data.object.lines.data.plan.id
+        const planId = req.body.data.object.lines.data[0].plan.id
         const conditions = { plan: planId}
         const customer = req.body.data.object.customer
         const stripeUser = req.body.user_id
