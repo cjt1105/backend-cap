@@ -72,7 +72,8 @@ router.post('/accounts/add', (req,res) => {
             interval: "month",
             name: planId,
             id: planId,
-            currency: 'usd'
+            currency: 'usd',
+            trial_period_days: Date.now() + 30,
 
         }, {stripe_account: stripeId}, (err,plan) => {
             if (err) {
@@ -223,6 +224,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
+                        trial_end: `${Date.now() + 15}`
                     }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
                         if(err) {
                             console.log(err)
