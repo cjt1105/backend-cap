@@ -247,7 +247,7 @@ router.post('/stripe/events', (req, res) => {
         // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
             `${subscriptionId}`,
-            { trial_end: `${Math.round(+new Date()/1000)-17800}` },
+            { trial_end: `now` },
             { stripe_account: stripeUser },
             (err, subscription) => {
                 if(err) {
