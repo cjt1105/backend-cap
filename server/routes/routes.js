@@ -244,7 +244,7 @@ router.post('/stripe/events', (req, res) => {
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
         const stripeUser = req.body.user_id
-        const startTime = req.body
+        const startTime = req.body.data.object.trial_start
         console.log("work!!!",startTime)
         // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
