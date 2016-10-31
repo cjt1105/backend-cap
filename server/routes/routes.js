@@ -299,8 +299,8 @@ router.post('/stripe/events', (req, res) => {
             res.send(200)
         }
     }
-    else {
-        // res.send(200)
+    if(req.body.type === 'invoice.created' && req.body.data.object.closed=== true){
+        res.send(200)
     }
 })
 
