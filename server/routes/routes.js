@@ -240,6 +240,11 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
+    if(req.body.type === 'invoiceItem.created'){
+        console.log(req.body)
+        res.send(200)
+    }
+
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
         const stripeUser = req.body.user_id
