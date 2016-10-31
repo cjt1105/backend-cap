@@ -222,7 +222,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     console.log(err)
                 }
                 else {
-                    console.log('timestamp!!!!', Math.floor(timestamp.now() + 1 ))
+                    console.log('timestamp!!!!', Math.floor(timestamp.now() + 15 ))
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
@@ -242,7 +242,9 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 
 router.post('/stripe/events', (req, res) => {
     // console.log('event_hoe!!!', req.body)
-    console.log('closesssssddddd', req.body.data.object)
+    if(req.body.type === 'customer.subscription.created'){
+        console.log("subscription", req.body)
+    }
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
