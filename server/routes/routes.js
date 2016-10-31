@@ -254,7 +254,7 @@ router.post('/stripe/events', (req, res) => {
                 if(err) {
                     console.log(err)
                 } else {
-                    console.log(subscription)
+                    // console.log(subscription)
                 }
             }
         )
@@ -266,7 +266,7 @@ router.post('/stripe/events', (req, res) => {
         const conditions = { plan: planId}
         const customer = req.body.data.object.customer
         const stripeUser = req.body.user_id
-        console.log(stripeUser)
+        // console.log(stripeUser)
          Account.findOne(conditions)
         .then((account) => {
             const adjustedPrice = Math.floor((account.price/account.users) * 100)
@@ -274,6 +274,7 @@ router.post('/stripe/events', (req, res) => {
                 res.send(200)
             } else {
                 const creditToAdd = adjustedPrice - invoicePrice;
+                console.log("credit!!!!", creditToAdd)
                     stripe.invoiceItems.create({
                         customer: customer,
                         amount: creditToAdd,
