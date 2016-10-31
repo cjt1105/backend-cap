@@ -243,7 +243,8 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 router.post('/stripe/events', (req, res) => {
     // console.log('event_hoe!!!', req.body)
     if(req.body.type === 'customer.subscription.created'){
-        console.log("subscription", req.body)
+        const subscriptionId = req.body.data.object.id
+        console.log(subscriptionId)
     }
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
         const invoiceId = req.body.data.object.id
