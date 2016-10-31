@@ -208,6 +208,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
     User.findOne({id: req.body.senderId})
     .then(user => {
         const stripeAccount= req.session.passport.user.stripeId
+        console.log(user.stripeAccount)
         if( user.stripeAccount === null || undefined ) {
             stripe.tokens.create({
                 customer: `${user.customerId}`
@@ -223,17 +224,19 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                         console.log(err)
                     }
                     else {
-                        stripe.subscriptions.create({
-                            customer: `${customer.id}`,
-                            plan: `${req.body.planId}`,
-                            trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
-                        }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
-                            if(err) {
-                                console.log(err)
-                            }
-                            console.log(subscription)
-                            res.end()
-                        })
+                        // stripe.subscriptions.create({
+                        //     customer: `${customer.id}`,
+                        //     plan: `${req.body.planId}`,
+                        //     trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
+                        // }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
+                        //     if(err) {
+                        //         console.log(err)
+                        //     }
+                        //     console.log(subscription)
+                        //     res.end()
+                        // })
+                        console.log('hey!!!')
+                        res.end()
                     }
                 })
             })
