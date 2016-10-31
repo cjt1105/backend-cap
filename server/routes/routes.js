@@ -244,10 +244,12 @@ router.post('/stripe/events', (req, res) => {
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
         const stripeUser = req.body.user_id
+        const timestamp = Math.round(+new Date()/1000)-17900
+        console.log("work!!!",timestamp)
         // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
             `${subscriptionId}`,
-            { trial_end: Math.round(+new Date()/1000)-17900 },
+            { trial_end: timestamp },
             { stripe_account: stripeUser },
             (err, subscription) => {
                 if(err) {
