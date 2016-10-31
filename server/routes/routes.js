@@ -281,7 +281,8 @@ router.post('/stripe/events', (req, res) => {
                     stripe.invoiceItems.create({
                         customer: customer,
                         amount: creditToAdd,
-                        currency: 'usd'
+                        currency: 'usd',
+                        invoice: invoiceId
                     }, {stripe_account: stripeUser },(err, item) => {
                         if(err){
                             console.log(err)
