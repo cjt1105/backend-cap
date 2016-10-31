@@ -11,6 +11,7 @@ const { getDate , shouldExchange } = require('../helpers/date')
 const request = require('request')
 const Invite = require('../models/invite');
 const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
+const timestamp = require('unix-timestamp')
 
 
 router.get('/', (req, res) => {
@@ -224,7 +225,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
-                        trial_end: `${Math.floor(( Date.now() + 30 ) /1000 )}`
+                        trial_end: `${timestamp.now() + 30}`
                     }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
                         if(err) {
                             console.log(err)
