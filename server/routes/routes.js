@@ -243,12 +243,12 @@ router.post('/stripe/events', (req, res) => {
     // console.log('event_hoe!!!', req.body)
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
+        const stripeUser = req.body.user_id
         // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
             `${subscriptionId}`,
-            {
-                trial_end: 'now'
-            },
+            { trial_end: 'now' },
+            { stripe_account: stripeUser },
             (err, subscription) => {
                 if(err) {
                     console.log(err)
