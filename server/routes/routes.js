@@ -222,6 +222,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     console.log(err)
                 }
                 else {
+                    console.log(timestamp.now() + 30)
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
