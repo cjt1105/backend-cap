@@ -241,7 +241,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 
 router.post('/stripe/events', (req, res) => {
     console.log('event_hoe!!!', req.body)
-    console.log('closesssssddddd', req.body.data.object.invoice.closed)
+    console.log('closesssssddddd', req.body.data)
     if(req.body.type === 'invoice.created' && req.body.data.object.invoice.closed === false){
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
