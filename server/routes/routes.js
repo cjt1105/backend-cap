@@ -249,7 +249,7 @@ router.post('/stripe/events', (req, res) => {
         // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
             `${subscriptionId}`,
-            { trial_end: timestamp },
+            { trial_end: parseInt(timestamp) },
             { stripe_account: stripeUser },
             (err, subscription) => {
                 if(err) {
