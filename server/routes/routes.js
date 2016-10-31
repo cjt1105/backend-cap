@@ -224,7 +224,7 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
-                        trial_end: `${Date.now() + 15}`
+                        trial_end: `${Math.floor(( Date.now() + 30 ) /1000 })`
                     }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
                         if(err) {
                             console.log(err)
