@@ -240,13 +240,10 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
 })
 
 router.post('/stripe/events', (req, res) => {
-    // console.log('event_hoe!!!', req.body)
     if(req.body.type === 'customer.subscription.created'){
         const subscriptionId = req.body.data.object.id
         const stripeUser = req.body.user_id
         const startTime = req.body.data.object.trial_start
-        console.log("work!!!",startTime)
-        // const planId = req.body.data.object.plan.id
         stripe.subscriptions.update(
             `${subscriptionId}`,
             { trial_end: startTime + 30 },
@@ -255,13 +252,13 @@ router.post('/stripe/events', (req, res) => {
                 if(err) {
                     console.log(err)
                 } else {
-                    // console.log(subscription)
+                    res.send(200)
                 }
             }
         )
     }
     if(req.body.type === 'invoice.created' && req.body.data.object.closed=== false){
-        console.log("check it", req.body.data.object.lines.data[0])
+        console.log("check it", req.body.data.object.lines.data[0].plan.id)
         const invoiceId = req.body.data.object.id
         const invoicePrice = req.body.data.object.amount_due
         const planId = req.body.data.object.lines.data.plan.id
