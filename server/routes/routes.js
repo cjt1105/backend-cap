@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-
+   
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
@@ -222,11 +222,10 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
                     console.log(err)
                 }
                 else {
-                    console.log(timestamp.now() + 30)
                     stripe.subscriptions.create({
                         customer: `${customer.id}`,
                         plan: `${req.body.planId}`,
-                        trial_end: `${timestamp.now() + 30}`
+                        trial_end: `${Math.floor(timestamp.now() + 30)}`
                     }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
                         if(err) {
                             console.log(err)
