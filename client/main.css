@@ -61,7 +61,8 @@ h1 {
 }
 
 #fb-login-link {
-    margin-left: 80%;
+    margin-left: 75vw;
+    position: absolute;
 }
 
 .nav-link{
