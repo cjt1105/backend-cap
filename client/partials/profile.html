@@ -1,6 +1,6 @@
 <div class='heading'>
     <h1> Welcome {{user.name}}</h1>
-    <!--<img ng-src="{{user.picture}}" alt="">-->
+    <img ng-src="{{user.picture}}" alt="">
     <div ng-repeat = 'account in userAccounts'>
        <a ng-href="#/user/accounts/{{account._id}}">{{account.name}}</a>
     </div>

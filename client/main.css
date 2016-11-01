@@ -4,13 +4,18 @@ body {
 }
 h1 {
     font-weight: bold;
-    letter-spacing: 3px
+    letter-spacing: 3px;
 }
-.heading {
+#home-header{
+    width: 100%;
+    text-align: center;
+    margin-top: 10vh
+}
+/*.heading {
     margin-top: 10%;
     margin-left: 27%;
     /*text-align: center*/
-}
+}*/
 #account-price {
     margin-left: 15%
 }
@@ -36,28 +41,27 @@ h1 {
     margin-left: none
 }
 #h4 {
-    margin-left: 3%;
     margin-top: 5%;
-    /*font-weight: 100*/
+    font-weight: 100
 }
 
 .streaming-logo {
-    width: 200px;
+    width: 20vw;
     height: 200px;
-    margin-left: 10px;
+    margin-left: 2vw;
     margin-top: 50px;
     border-radius: 5%
 }
 .streaming-logo-1 {
-    width: 200px;
+    width: 20vw;
     height: 200px;
-    margin-left: 110px;
     margin-top: 50px;
     border-radius: 5%
 }
 
 #account-logo-container {
-    width: 100%
+    width: 100vw;
+    margin-left: none
 }
 
 #fb-login-link {
