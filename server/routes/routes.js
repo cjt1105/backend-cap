@@ -239,6 +239,11 @@ router.post('/api/accounts/subscribeUser', (req,res) => {
     })
 })
 
+router.get('/delete/:stripeId', (req,res) => {
+    const stripeId = req.params.stripeId
+    stripe.accounts.del({stripeId})
+})
+
 router.post('/stripe/events', (req, res) => {
     if(req.body.type === 'invoiceItem.created'){
         console.log(req.body)
