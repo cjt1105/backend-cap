@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="/lib/angular-material/angular-material.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <script type="text/javascript">
       if (window.location.hash && window.location.hash == '#_=_') {
         window.location.hash = '/profile';
@@ -15,11 +16,10 @@
   </head>
   <body>
     <div ng-app="streamBuddies">
-      
-        <div class='container'>
-            <div ng-view></div>
-            <div ng-include="'./partials/side.nav.html'"> </div>
-        </div>
+      <div ng-include="'./partials/side.nav.html'"> </div>
+      <div class='container'>
+        <div ng-view></div>
+      </div>
     </div>
     
     <script src="/lib/angular/angular.min.js"></script>

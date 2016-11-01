@@ -1,10 +1,84 @@
+body {
+    font-family: 'Oswald', sans-serif;
+    background: #F6F3EE
+}
+h1 {
+    font-weight: bold;
+    letter-spacing: 3px
+}
 .heading {
-    margin-top: 20%
+    margin-top: 10%;
+    margin-left: 27%;
+    /*text-align: center*/
 }
 #account-price {
     margin-left: 15%
 }
 #fbLogin {
     width: 175px;
-    height: 75px
+    height: 75px;
+    margin-top: 10px
+}
+#hamburger {
+    width: 50px;
+    height: 45px;
+    margin-left: 20px;
+    margin-top: 20px
+}
+#hamburger_container {
+    float: left
+}
+
+#navbar {
+    background: #1E89D1;
+    height: 85px;
+    width: 100%;
+    margin-left: none
+}
+#h4 {
+    margin-left: 3%;
+    margin-top: 5%;
+    /*font-weight: 100*/
+}
+
+.streaming-logo {
+    width: 200px;
+    height: 200px;
+    margin-left: 10px;
+    margin-top: 50px;
+    border-radius: 5%
+}
+.streaming-logo-1 {
+    width: 200px;
+    height: 200px;
+    margin-left: 110px;
+    margin-top: 50px;
+    border-radius: 5%
+}
+
+#account-logo-container {
+    width: 100%
+}
+
+#fb-login-link {
+    margin-left: 80%;
+}
+
+.nav-link{
+    display: block;
+    padding-left: 25%
+}
+
+#nav-toolbar {
+    background: #1E89D1;
+    height: 85px
+}
+#sidenav-content {
+    background: #F6F3EE;
+    height: 100vh ;
+}
+#close-button {
+    margin-left: 25%;
+    width: 20%;
+    margin-left: 72%
 }

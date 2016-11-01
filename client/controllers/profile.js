@@ -10,10 +10,10 @@ angular.module('streamBuddies')
        $rootScope.user = data;
        $scope.$apply()
    })
-    axios.get('/me')
-    .then(({data}) => {
-        console.log(data.data)
-    })
+    // axios.get('/me')
+    // .then(({data}) => {
+    //     console.log(data.data)
+    // })
 
 
     function DialogController($scope, $mdDialog, items) {

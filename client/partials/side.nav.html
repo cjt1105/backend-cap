@@ -5,34 +5,29 @@
 
     <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
 
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+      <md-toolbar id="nav-toolbar">
+          <md-button ng-click="toggleLeft()" id="close-button" class="md-accent">
+          Close
+          </md-button>
       </md-toolbar>
 
-      <md-content layout-margin="">
-        <li class="active"><a href="#/">Home</a></li>
-        <li><a href="#/login">Login</a></li>
-        <li><a href="#/profile">Profile</a></li>
-        <li><a href="#/invites">Invites</a></li>
-        <md-button ng-click="toggleLeft()" class="md-accent">
-          Close this Sidenav
-        </md-button>
+      <md-content id="sidenav-content">
+        <div class="nav-link"><md-button><a href="#/">Home</a></md-button ></div>
+        <div class="nav-link"><md-button><a target='_self' href="/logout">Logout</a></md-button></div>
+        <div class="nav-link"><md-button><a href="#/profile">Profile</a></md-button></div>
+        <div class="nav-link"><md-button><a href="#/invites">Invites</a></md-button></div>
       </md-content>
 
     </md-sidenav>
 
-    <md-content flex="" layout-padding="">
-
-      <div layout="column" layout-align="top center">
-        <div>
-          <md-button ng-click="toggleLeft()" class="md-raised">
-            Toggle Sidenav
-          </md-button>
+      <div id="navbar">
+        <div  layout-align="top left">
+          <div id="hamburger_container">
+            <img id="hamburger" ng-click="toggleLeft()" src="../images/hamburger.png"></img>
+          </div>
+          <a id="fb-login-link" layout-align="top right" target="_self" href="/login/facebook"><img id="fbLogin" src="../images/login-button-png-18039.png" alt=""></a>
         </div>
-
       </div>
-
-    </md-content>
 
   </section>
 

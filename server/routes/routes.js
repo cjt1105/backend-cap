@@ -121,11 +121,11 @@ router.get('/logout', (req,res) => {
 
 /// browse routes
 
-router.get('/me', (req,res) => {
-    request(`https://graph.facebook.com/me/friends?access_token=${req.session.passport.user.access_token}`, (err, response, body) => {
-       res.send(body)
-    })
-})
+// router.get('/me', (req,res) => {
+//     request(`https://graph.facebook.com/me/friends?access_token=${req.session.passport.user.access_token}`, (err, response, body) => {
+//        res.send(body)
+//     })
+// })
 
 router.get('/api/accounts/invite/:id', (req,res) => {
     Account.findOne({_id: req.params.id})
