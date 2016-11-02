@@ -20,6 +20,7 @@ angular.module('streamBuddies')
 
 
     function DialogController($scope, $mdDialog, $http) {
+        $scope.number = 4000056655665556
         $scope.account = { name: null, price: null}
         ///populate account options for select tag
         $scope.accountInfo = ""
