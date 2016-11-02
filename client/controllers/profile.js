@@ -21,8 +21,9 @@ angular.module('streamBuddies')
 
     function DialogController($scope, $mdDialog) {
         $http.get('/loggedIn')
-        .then(({result}) => {
-            console.log(result)
+        .then((data) => {
+            console.log(data)
+            console.log("hi")
         })
 
         $scope.account = { name: null, price: null}
