@@ -1,4 +1,17 @@
-<div class="heading">
-    <h3>{{userAccount.name}}</h3>
-    <a ng-click="sendInviteRequest(userAccount.owner, userAccount.plan)" >Request Invite</a>
+<div class="container">
+    <h4>{{userAccount.name}} ${{userAccount.price}}</h4>
+    <h5>To join this account:</h5>
+    <h5>1. Copy link below</h5>
+    <h5>2. Login and add a card from dashboard</h5>
+    <h5>3. Return to this page and click the "Request Access" button below</h5>
+    <md-input-container>
+            <h5>Invite Link</h5>
+        <div>
+        <input class="invite-link" value="http:localhost:3000/#/user/accounts/invite/{{userAccount._id}}">
+        <md-button class="clipboard-btn" data-clipboard-target=".invite-link">
+            Copy to clipboard
+        </md-button>
+         <div>
+    </md-button>
+    <md-button ng-click="sendInviteRequest(userAccount.owner, userAccount.plan)" >Request Access</md-button>
 </div>

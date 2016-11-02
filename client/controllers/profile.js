@@ -46,6 +46,9 @@ angular.module('streamBuddies')
             }
 
             axios.post('/accounts/add', account)
+            .then(() => {
+              $window.location.reload()
+            })
         }
 
           $scope.submit = () => {
@@ -67,6 +70,7 @@ angular.module('streamBuddies')
                         Stripe.createToken(cardDetails, (stat, res) => {
                             const user = {
                             external_account: response.id,
+                            ///store token ad tos_date short term to get it to server
                             tos_acceptance: {date: res.id},
                             managed: true,
                             legal_entity: {
@@ -87,6 +91,9 @@ angular.module('streamBuddies')
                             }
                         }
                         $http.post('/api/stripe/createUser', user)
+                        .then(() => {
+                            $window.location.reload()
+                        })
                         })
                     }
               })

@@ -138,7 +138,7 @@ router.get('/logout', (req,res) => {
 router.get('/api/accounts/invite/:id', (req,res) => {
     Account.findOne({_id: req.params.id})
     .then(account => {
-        const response = {name: account.name, owner: account.owner, plan: account.plan}
+        const response = {_id: account._id, name: account.name, owner: account.owner, plan: account.plan, price: (account.price/account.users).toFixed(2)}
         res.json(response)
     })
 })
@@ -182,6 +182,7 @@ router.get('/api/invites', (req,res) => {
 
 router.post('/api/stripe/createUser', (req,res) => {
     console.log(req.body)
+    /// grab token that was temporarily stored in tos_date and set date to correct value
     const token = req.body.tos_acceptance.date;
     req.body.tos_acceptance.date = Math.floor(Date.now() / 1000);
     req.body.tos_acceptance.ip = req.connection.remoteAddress;
@@ -195,7 +196,6 @@ router.post('/api/stripe/createUser', (req,res) => {
             if(err){
                 console.log(err)
             }
-            // req.body.external_account = customer.default_source
             stripe.tokens.create({card: customer.default_source })
             updates.customerId = customer.id
 
@@ -282,7 +282,6 @@ router.post('/stripe/events', (req, res) => {
         const conditions = { plan: planId}
         const customer = req.body.data.object.customer
         const stripeUser = req.body.user_id
-        // console.log(stripeUser)
         if(planId != null) {
             Account.findOne(conditions)
             .then((account) => {
