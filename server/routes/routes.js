@@ -63,6 +63,7 @@ router.get('/accounts/populate', (req,res) => {
 })
 
 router.post('/accounts/add', (req,res) => {
+    console.log(req.body)
     const planId = `${req.body.name}_${req.session.passport.user.id}`
     req.body.owner = req.session.passport.user.id.toString();
     req.body.plan = planId;

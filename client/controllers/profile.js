@@ -45,7 +45,7 @@ angular.module('streamBuddies')
                 users: 1,
             }
 
-            axios.post('accounts/add', account)
+            axios.post('/accounts/add', account)
         }
 
           $scope.submit = () => {
