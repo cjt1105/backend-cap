@@ -14,7 +14,7 @@
       <md-content id="sidenav-content">
         <div class="nav-link"><md-button><a href="#/">Home</a></md-button ></div>
         <div class="nav-link"><md-button><a target='_self' href="/logout">Logout</a></md-button></div>
-        <div class="nav-link"><md-button><a href="#/profile">Profile</a></md-button></div>
+        <div ngShow="loggedIn" class="nav-link"><md-button><a href="#/profile">Profile</a></md-button></div>
         <div class="nav-link"><md-button><a href="#/invites">Invites</a></md-button></div>
       </md-content>
 

@@ -4,9 +4,8 @@ angular.module('streamBuddies')
     $scope.toggleRight = buildToggler('right');
 
     $http.get('/loggedIn')
-        .then((data) => {
-            console.log(data)
-            console.log("hi")
+        .then(({data}) => {
+            $scope.loggedIn = data.result
         })
 
     function buildToggler(componentId) {
