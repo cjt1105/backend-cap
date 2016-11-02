@@ -1,7 +1,9 @@
 angular.module('streamBuddies')
 .controller('UserAccountCtrl', function($scope, $routeParams, $location) {
     $scope.message = 'Sorry, you cant access this account. Redirecting to invite page'
-    $scope.ownsAccount = false
+    $scope.ownsAccount = false;
+
+    new Clipboard('.clipboard-btn');
 
     axios.get(`/api/user/accounts/${$routeParams.id}`)
     .then(({data}) => {

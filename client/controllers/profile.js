@@ -35,6 +35,19 @@ angular.module('streamBuddies')
 
         }
 
+        $scope.createAccount = () => {
+            const account = {
+                name: $scope.account.name,
+                email: $scope.email,
+                password: $scope.password,
+                price: $scope.account.price,
+                canAccess: [],
+                users: 1,
+            }
+
+            axios.post('accounts/add', account)
+        }
+
           $scope.submit = () => {
 
               const cardDetails = {
