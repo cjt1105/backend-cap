@@ -16,8 +16,18 @@ angular.module('streamBuddies')
     // })
 
 
+
+
     function DialogController($scope, $mdDialog) {
-$scope.a = ["hey"]
+        $scope.account = { name: null, price: null}
+        ///populate account options for select tag
+        $scope.accountInfo = ""
+        axios.get('/accounts/populate')
+        .then(({ data }) => {
+            $scope.accountInfo = data
+            // $scope.$apply()
+        })
+        .then(() => console.log($scope.accountInfo))
 
         $scope.closeDialog = function() {
           $mdDialog.hide();
