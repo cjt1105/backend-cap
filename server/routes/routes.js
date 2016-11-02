@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/session', (req,res) => {
-   
+   console.log(req.session)
 })
 
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))

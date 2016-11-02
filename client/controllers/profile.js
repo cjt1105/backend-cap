@@ -16,8 +16,9 @@ angular.module('streamBuddies')
     // })
 
 
-    function DialogController($scope, $mdDialog, items) {
-        $scope.items = items;
+    function DialogController($scope, $mdDialog) {
+$scope.a = ["hey"]
+
         $scope.closeDialog = function() {
           $mdDialog.hide();
 
@@ -68,6 +69,17 @@ angular.module('streamBuddies')
            }
 }
 
+$scope.newAccount = (ev) => {
+     var parentEl = angular.element(document.body);
+    $mdDialog.show({
+        parent: parentEl,
+        targetEvent: ev,
+        templateUrl: '../partials/new.account.modal.html' ,
+
+           controller: DialogController
+    })
+}
+
 
 
 
@@ -83,6 +95,7 @@ angular.module('streamBuddies')
             '<md-tab>'+
             '<md-tab-label>My Tab content</md-tab-label>'+
             '</md-tab>'+
+            '<div class="container"'+
             '<form method="POST" ng-model="cardForm">'+
                 '  <md-input-container>'+
                     '<label>Card Number</label>'+
@@ -137,8 +150,10 @@ angular.module('streamBuddies')
                     '<input ng-model="birthYear">'+
                  '  </md-input-container>'+
             '</form>'+
+            '</div>'+
              '  </md-dialog-content>' +
            '  <md-dialog-actions>' +
+           '    <div id="stripe-agreement">By submitting, you agree to our <a>Service Agreement</a> and the <a href="https://stripe.com/us/legal/">Stripe Connected Account Agreement</a></div>'+
            '    <md-button ng-click="submit()" class="md-primary">' +
            '      Submit' +
            '    </md-button>' +
@@ -146,13 +161,8 @@ angular.module('streamBuddies')
            '      Close Dialog' +
            '    </md-button>' +
            '  </md-dialog-actions>' +
-           '    <p> By submitting, you agree to out <a>Service Agreement</a> and the <a href="https://stripe.com/us/legal/">Stripe Connected Account Agreement</a>'+
            '</md-dialog>',
 
-         
-         locals: {
-           items: $scope.items
-         },
          controller: DialogController
       });
 

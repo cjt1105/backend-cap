@@ -1,11 +1,13 @@
 <div class='heading'>
-    <h1> Welcome {{user.name}}</h1>
-    <img id="user-image" ng-src="{{user.picture}}" alt="">
-    <div ng-repeat = 'account in userAccounts'>
-       <a ng-href="#/user/accounts/{{account._id}}">{{account.name}}</a>
+    <div class="container">
+        <h3> Welcome {{user.name}}</h3>
+        <img id="user-image" ng-src="{{user.picture}}" alt="">
+        <div ng-repeat = 'account in userAccounts'>
+        <a ng-href="#/user/accounts/{{account._id}}">{{account.name}}</a>
+        </div>
+        <md-button ng-click="newAccount($event)">Add Account</md-button>
+            <md-button ng-click="showPrompt($event)">
+                Add a card
+            </md-button>
     </div>
-    <a href="#/accounts/add">add account</a>
-           <md-button class="md-primary md-raised" ng-click="showPrompt($event)">
-      Prompt Dialog
-    </md-button>
 </div>

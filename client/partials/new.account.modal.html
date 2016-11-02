@@ -1,0 +1,37 @@
+<md-dialog aria-label="List dialog"> 
+              <md-dialog-content>
+            <md-tab>
+            <md-tab-label>My Tab content</md-tab-label>
+            </md-tab>
+            <div class="container"
+            <form ng-model="newAccount">
+                  <md-input-container>
+                    <label>Email</label>
+                    <input data-stripe="number" ng-model="email">
+                  </md-input-container>
+                  <md-input-container>
+                    <label>Password</label>
+                    <input data-stripe="exp_month" ng-model="exp_month">
+                  </md-input-container>
+                <div>
+                  <md-input-container>
+                    <label for="account">Account type</label>
+                    <md-select ng-model='account' name="account">
+                    <md-option ng-repeat="s in a" ng-value="s">
+                    {{s}}
+            </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+            </form>
+            </div>
+               </md-dialog-content> 
+             <md-dialog-actions> 
+               <md-button ng-click="submit()" class="md-primary"> 
+                 Submit 
+               </md-button> 
+               <md-button ng-click="closeDialog()" class="md-primary"> 
+                 Close Dialog 
+               </md-button> 
+             </md-dialog-actions> 
+           </md-dialog>

@@ -46,18 +46,51 @@ h1 {
 }
 
 .streaming-logo {
-    width: 20vw;
-    height: 200px;
+    width: 15vw;
+    height: 18vh;
     margin-left: 2vw;
     margin-top: 50px;
     border-radius: 5%
 }
 .streaming-logo-1 {
-    width: 20vw;
-    height: 200px;
+    width: 15vw;
+    height: 18vh;
     margin-top: 50px;
     border-radius: 5%
 }
+
+@media (max-width: 792px) {
+    .streaming-logo {
+        width: 17.5vw;
+        height: 16.5vh;
+        margin-left: 2vw;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+    .streaming-logo-1 {
+        width: 17.5vw;
+        height: 16.5vh;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+}
+
+@media (max-width: 450px) {
+    .streaming-logo {
+        width: 14.5vw;
+        height: 10.5vh;
+        margin-left: 2vw;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+    .streaming-logo-1 {
+        width: 14.5vw;
+        height: 10.5vh;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+}
+
 
 #account-logo-container {
     width: 100vw;
@@ -89,6 +122,10 @@ h1 {
 }
 #user-image {
     border-radius: 50%;
-    height: 150px;
-    width: 150px
+    height: 80px;
+    width: 80px
+}
+#stripe-agreement {
+    width: 60%;
+    margin-right: 19%;
 }
