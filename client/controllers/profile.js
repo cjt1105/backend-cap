@@ -19,7 +19,7 @@ angular.module('streamBuddies')
 
 
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController($scope, $mdDialog, $http) {
         $http.get('/loggedIn')
         .then((data) => {
             console.log(data)
