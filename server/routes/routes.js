@@ -20,11 +20,10 @@ router.get('/', (req, res) => {
 
 router.get('/loggedIn', (req,res) => {
     if(req.session.passport != undefined || null) {
-        console.log(req.session)
+        res.send(200, {result: true})
     } else {
-        console.log('shittttttttttt')
+        res.send(401, {result: false})
     }
-    res.send(200)
 })
 
 router.get('/session', (req,res) => {

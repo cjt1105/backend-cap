@@ -1,5 +1,10 @@
 angular.module('streamBuddies')
-.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http) {
+.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window) {
+
+    $http.get('/loggedIn')
+    .then(({result}) => {
+        console.log(result)
+    })
     $rootScope.user = null,
     $scope.userAccounts = null;
    axios.get('/api/user/accounts')
