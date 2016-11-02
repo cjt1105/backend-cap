@@ -1,10 +1,6 @@
 angular.module('streamBuddies')
 .controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window) {
 
-    $http.get('/loggedIn')
-    .then(({result}) => {
-        console.log(result)
-    })
     $rootScope.user = null,
     $scope.userAccounts = null;
    axios.get('/api/user/accounts')
@@ -24,6 +20,11 @@ angular.module('streamBuddies')
 
 
     function DialogController($scope, $mdDialog) {
+        $http.get('/loggedIn')
+        .then(({result}) => {
+            console.log(result)
+        })
+
         $scope.account = { name: null, price: null}
         ///populate account options for select tag
         $scope.accountInfo = ""
