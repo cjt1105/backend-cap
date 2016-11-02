@@ -18,6 +18,14 @@ router.get('/', (req, res) => {
     console.log(req.session)
 })
 
+router.get('/loggedIn', (req,res) => {
+    if(req.session.passport != undefined || null) {
+        console.log(req.session)
+    } else {
+        console.log('shittttttttttt')
+    }
+    res.send(200)
+})
 
 router.get('/session', (req,res) => {
    console.log(req.session)
