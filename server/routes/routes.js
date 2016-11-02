@@ -22,7 +22,7 @@ router.get('/loggedIn', (req,res) => {
     if(req.session.passport != undefined || null) {
         res.send(200, {result: true})
     } else {
-        res.send(401, {result: false})
+        res.send(200, {result: false})
     }
 })
 
