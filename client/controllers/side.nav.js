@@ -6,6 +6,7 @@ angular.module('streamBuddies')
     $http.get('/loggedIn')
         .then(({data}) => {
             $scope.loggedIn = data.result
+            $scope.apply()
         })
 
     function buildToggler(componentId) {
