@@ -138,6 +138,7 @@ router.get('/logout', (req,res) => {
 router.get('/api/accounts/invite/:id', (req,res) => {
     Account.findOne({_id: req.params.id})
     .then(account => {
+        console.log(account)
         const response = {_id: account._id, name: account.name, owner: account.owner, plan: account.plan, price: (account.price/account.users).toFixed(2)}
         res.json(response)
     })
