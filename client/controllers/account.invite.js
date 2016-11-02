@@ -2,10 +2,10 @@ angular.module('streamBuddies')
 .controller('AccountInviteCtrl', function($scope, $http, $routeParams) {
     
     new Clipboard('.clipboard-btn');
-    
+
     $http.get(`/api/accounts/invite/${$routeParams.id}`)
     .then(({data}) => {
-        console.log(data)
+        console.log("data", data)
         $scope.userAccount = data
     })
 
