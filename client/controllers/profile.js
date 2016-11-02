@@ -20,12 +20,6 @@ angular.module('streamBuddies')
 
 
     function DialogController($scope, $mdDialog, $http) {
-        $http.get('/loggedIn')
-        .then((data) => {
-            console.log(data)
-            console.log("hi")
-        })
-
         $scope.account = { name: null, price: null}
         ///populate account options for select tag
         $scope.accountInfo = ""
