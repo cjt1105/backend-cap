@@ -30,7 +30,7 @@ router.get('/session', (req,res) => {
    console.log(req.session)
 })
 
-router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'] }))
+router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'], display: 'popup' }))
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login', successRedirect: '/' }))
 
