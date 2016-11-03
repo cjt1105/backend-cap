@@ -1,0 +1,187 @@
+body {
+    font-family: 'Oswald', sans-serif;
+    background: #F6F3EE
+}
+h1 {
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+#home-header{
+    width: 100%;
+    text-align: center;
+    margin-top: 10vh
+}
+/*.heading {
+    margin-top: 10%;
+    margin-left: 27%;
+    /*text-align: center*/
+}*/
+#account-price {
+    margin-left: 15%
+}
+#fb-login-button {
+    display: inline-block;
+    margin-right: 155px;
+    color: white;
+    margin-top: 30px;
+    float: right
+}
+#hamburger {
+    margin-left: 155px;
+    margin-top: 30px;
+    display: inline-block;
+    color: white
+}
+#hamburger_container {
+    float: left
+}
+
+#navbar {
+    background: #1E89D1;
+    height: 85px;
+    width: 100%;
+    margin-left: none
+}
+#h4 {
+    margin-top: 25px;
+    font-weight: 100
+}
+
+.streaming-logo {
+    width: 15vw;
+    height: 18vh;
+    margin-left: 2vw;
+    margin-top: 50px;
+    border-radius: 5%
+}
+.streaming-logo-1 {
+    width: 15vw;
+    height: 18vh;
+    margin-top: 50px;
+    border-radius: 5%
+}
+
+@media (max-width: 792px) {
+    .streaming-logo {
+        width: 17.5vw;
+        height: 16.5vh;
+        margin-left: 2vw;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+    .streaming-logo-1 {
+        width: 17.5vw;
+        height: 16.5vh;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+}
+
+@media (max-width: 450px) {
+    .streaming-logo {
+        width: 14.5vw;
+        height: 10.5vh;
+        margin-left: 2vw;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+    .streaming-logo-1 {
+        width: 14.5vw;
+        height: 10.5vh;
+        margin-top: 50px;
+        border-radius: 5%
+    }
+}
+
+
+#account-logo-container {
+    width: 100vw;
+    margin-left: none
+}
+
+#login-link {
+    color: white
+}
+
+.nav-link{
+    display: block;
+    padding-left: 25%;
+    color: white;
+}
+
+#nav-toolbar {
+    background: #1E89D1;
+    height: 85px
+}
+#sidenav-content {
+    background: #F6F3EE;
+    height: 100vh ;
+}
+#close-button {
+    margin-left: 25%;
+    width: 20%;
+    margin-left: 72%
+}
+#user-image {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px
+}
+#stripe-agreement {
+    width: 60%;
+    margin-right: 19%;
+}
+.invite-clipboard {
+    margin-top: 25px
+}
+#account-card {
+    margin-top: 25px;
+    /*border: 1px solid black;*/
+    padding-top: 20px
+}
+#dashboard-account-name {
+    display: block;
+    text-align: center;
+}
+.center {
+    text-align: center
+}
+#left-pane {
+    background: white;
+    margin-top: 20px;
+    height: 90vh;
+    margin-right: 10px;
+}
+#right-pane {
+    background: #6BB3E1;
+    margin-top: 20px;
+    color: white;
+    height: 90vh
+}
+#account-card-title {
+    color: black;
+}
+#contributor-card {
+    background: white;
+    min-height: 85px;
+}
+#dashboard-account-contrib {
+    color: black;
+}
+#contributor-card-image {
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    border-radius: 5%
+}
+#contributor-card-description {
+    /*margin-top: 30px*/
+}
+#invite-main-pane {
+    background: white
+}
+#account-main-pane {
+    background: white;
+    height: 88vh;
+    
+}

@@ -1,0 +1,62 @@
+      <!--sidenav-->
+      <div ng-controller="SideNavCtrl">
+
+    <section layout="row" flex="">
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
+
+      <md-toolbar id="nav-toolbar">
+          <md-button ng-click="toggleLeft()" id="close-button" class="md-accent">
+          Close
+          </md-button>
+      </md-toolbar>
+
+      <md-content id="sidenav-content">
+         <div class="nav-link">
+          <a href="#/" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Home
+            </md-button>
+          </a>
+        </div>
+         <div class="nav-link">
+          <a href="/logout" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Logout
+            </md-button>
+          </a>
+        </div>
+        <div class="nav-link">
+          <a href="#/profile" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Profile
+            </md-button>
+          </a>
+        </div>
+        <div class="nav-link">
+          <a href="#/invites" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Requests
+            </md-button>
+          </a>
+        </div>
+      </md-content>
+
+    </md-sidenav>
+
+      <div id="navbar">
+        <md-button id="hamburger" ng-click="toggleLeft()">
+          Menu
+        </md-button>
+        <!--<div id="fb-login-button">-->
+          <a layout-align="top right" target="_self" href="/login/facebook">
+            <md-button id="fb-login-button">
+              Login with Facebook
+            </md-button>
+          </a>
+        <!--</div>-->
+      </div>
+
+  </section>
+
+   </div>
