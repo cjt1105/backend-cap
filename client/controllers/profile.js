@@ -1,7 +1,7 @@
 angular.module('streamBuddies')
 .controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window) {
 
-    $rootScope.user = null,
+    $scope.user = null,
     $scope.userAccounts = null;
     $scope.contributors = []
     $scope.cardAdded = false
@@ -20,10 +20,10 @@ angular.module('streamBuddies')
     axios.get('/api/user/info')
     .then(({data})=> {
         console.log(data)
-        $rootScope.user = data;
+        $scope.user = data;
         $scope.cardAdded = !data.card_added
         console.log($scope.cardAdded)
-        $scope.$apply()
+        $scope.$digest()
     })
 
 
