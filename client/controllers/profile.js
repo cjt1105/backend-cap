@@ -100,7 +100,7 @@ angular.module('streamBuddies')
                                 }
                             }
                         }
-                        $http.post('/api/stripe/createUser', user)
+                        axios.post('/api/stripe/createUser', user)
                         .then(({data})=> {
                             // $rootScope.user = data;
                             $scope.cardAdded = !data.card_adde
