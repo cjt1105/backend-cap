@@ -6,7 +6,7 @@ angular.module('streamBuddies')
     $scope.contributors = []
     $scope.cardAdded = false
 
-    axios.get('/api/user/accounts')
+    $http.get('/api/user/accounts')
     .then(({data}) => {
         data.forEach((item) => {
             item.contributors.forEach((_item) => {
@@ -17,7 +17,7 @@ angular.module('streamBuddies')
         $scope.userAccounts = data
         console.log(data)
         })
-    axios.get('/api/user/info')
+    $http.get('/api/user/info')
     .then(({data})=> {
         console.log(data)
         $rootScope.user = data;
