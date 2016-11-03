@@ -100,7 +100,7 @@ angular.module('streamBuddies')
                                 }
                             }
                         }
-                        axios.get('/api/user/info')
+                            axios.get('/api/user/info')
                             .then(({data})=> {
                                 console.log(data)
                                 $scope.user = data;
@@ -108,6 +108,7 @@ angular.module('streamBuddies')
                                 console.log($scope.cardAdded)
                                 $scope.$digest()
                             })
+                        })
                     }
               })
            }
