@@ -181,7 +181,7 @@ h1 {
     background: white;
     margin-top: 20px
 }
-#account-main-pane {
+.account-main-pane {
     background: white;
     height: 88vh;
     margin-top: 20px
