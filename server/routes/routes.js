@@ -148,7 +148,7 @@ router.patch('/api/accounts/addUser', (req,res) => {
     const conditions ={
         _id: req.body.accountId
     }
-    const inviteId = req.body._id;
+    const inviteId = req.body.id;
     console.log(inviteId)
     Account.update(conditions, {$addToSet: { canAccess: req.body.userToAdd}})
     .then(account => {
