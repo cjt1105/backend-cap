@@ -19,11 +19,9 @@ angular.module('streamBuddies')
         })
     axios.get('/api/user/info')
     .then(({data})=> {
-        console.log(data)
-        $scope.user = data;
-        $scope.cardAdded = !data.card_added
-        console.log($scope.cardAdded)
-        $scope.$digest()
+        setTimeout(() => {
+            $window.location.reload()
+        }, 500)
     })
 
 
