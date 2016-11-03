@@ -37,7 +37,7 @@ angular.module('streamBuddies')
         axios.get('/accounts/populate')
         .then(({ data }) => {
             $scope.accountInfo = data
-            $scope.$apply()
+            // $scope.$apply()
         })
         .then(() => console.log($scope.accountInfo))
 
