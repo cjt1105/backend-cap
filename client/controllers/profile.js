@@ -20,9 +20,6 @@ angular.module('streamBuddies')
             console.log($scope.cardAdded)
             $scope.$apply()
         })
-        .then(() => {
-            console.log('got here')
-        })
     })
 
 
@@ -63,9 +60,10 @@ angular.module('streamBuddies')
                             $scope.userAccounts = []
                             $scope.userAccounts = data
                             console.log(data)
-                            $scope.$digest()
                         })
-                        $mdDialog.hide();
+                })
+                .then(() => {
+                    $mdDialog.hide();
                 })
             })
         }
