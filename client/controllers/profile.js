@@ -60,6 +60,7 @@ angular.module('streamBuddies')
                             $scope.userAccounts = []
                             $scope.userAccounts = data
                             console.log(data)
+                            $scope.$digest()
                         })
                         $mdDialog.hide();
                 })
