@@ -1,13 +1,32 @@
 <div class='heading'>
     <div class="container">
-        <h3> Welcome {{user.name}}</h3>
-        <img id="user-image" ng-src="{{user.picture}}" alt="">
-        <div ng-repeat = 'account in userAccounts'>
-        <a ng-href="#/user/accounts/{{account._id}}">{{account.name}}</a>
-        </div>
-        <md-button ng-click="newAccount($event)">Add Account</md-button>
+        <ng-include src=" 'partials/progress.bar.html' "></ng-include>
+        <div id="left-pane" class="col-md-4">
+            <h3> Dashboard</h3>
+            <img id="user-image" ng-src="{{user.picture}}" alt="">
+            <md-button ng-disabled="cardAdded" ng-click="newAccount($event)">
+                Add Account
+            </md-button>
             <md-button ng-click="showPrompt($event)">
                 Add a card
             </md-button>
+        </div>
+        <div id="right-pane" class="col-md-7 center">
+            <h3 id="account-card-title">Accounts</h3>
+            <div id="account-card">
+                <div  ng-repeat = 'account in userAccounts'>
+                    <a id="dashboard-account-name" ng-href="#/user/accounts/{{account._id}}">
+                        {{account.name}}
+                    </a>
+                    <h5>Contributors</h5>
+                    <div id="contributor-card" ng-repeat="contributor in contributors">
+                        <img id="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
+                        <h5 id="dashboard-account-contrib" >
+                            <span id="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

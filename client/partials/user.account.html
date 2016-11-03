@@ -1,11 +1,11 @@
-<div class="container">
+<div id="account-main-pane" class="container">
     <h1>{{myAccount.name}}</h1>
     <h3>{{myAccount.email}}</h3>
     <h3>{{myAccount.password}}</h3>
 
     <div class="invite-clipboard">
         <md-input-container>
-            <h5>Invite Link</h5>
+            <h3>Invite Link</h3>
         <div>
         <input id="invite-link" value="https://still-ocean-92666.herokuapp.com/#/user/accounts/invite/{{myAccount._id}}">
         <md-button class="clipboard-btn" data-clipboard-target="#invite-link">

@@ -44,7 +44,8 @@ module.exports = (passport) => {
                     name: profile.displayName,
                     picture: profile.photos[0].value,
                     access_token: accessToken,
-										token_exchanged: getDate()
+					token_exchanged: getDate(),
+                    card_added: false
                     }
                 User.create(newUser, (err,user) => {
                     if (err) return handleError

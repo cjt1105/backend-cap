@@ -19,16 +19,18 @@ h1 {
 #account-price {
     margin-left: 15%
 }
-#fbLogin {
-    width: 175px;
-    height: 65px;
-    margin-top: 10px
+#fb-login-button {
+    display: inline-block;
+    margin-right: 155px;
+    color: white;
+    margin-top: 30px;
+    float: right
 }
 #hamburger {
-    /*width: 30px;*/
-    /*height: 30px;*/
-    margin-left: 25px;
-    margin-top: 30px
+    margin-left: 155px;
+    margin-top: 30px;
+    display: inline-block;
+    color: white
 }
 #hamburger_container {
     float: left
@@ -97,14 +99,14 @@ h1 {
     margin-left: none
 }
 
-#fb-login-link {
-    margin-left: 75vw;
-    position: absolute;
+#login-link {
+    color: white
 }
 
 .nav-link{
     display: block;
-    padding-left: 25%
+    padding-left: 25%;
+    color: white;
 }
 
 #nav-toolbar {
@@ -131,4 +133,55 @@ h1 {
 }
 .invite-clipboard {
     margin-top: 25px
+}
+#account-card {
+    margin-top: 25px;
+    /*border: 1px solid black;*/
+    padding-top: 20px
+}
+#dashboard-account-name {
+    display: block;
+    text-align: center;
+}
+.center {
+    text-align: center
+}
+#left-pane {
+    background: white;
+    margin-top: 20px;
+    height: 90vh;
+    margin-right: 10px;
+}
+#right-pane {
+    background: #6BB3E1;
+    margin-top: 20px;
+    color: white;
+    height: 90vh
+}
+#account-card-title {
+    color: black;
+}
+#contributor-card {
+    background: white;
+    min-height: 85px;
+}
+#dashboard-account-contrib {
+    color: black;
+}
+#contributor-card-image {
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    border-radius: 5%
+}
+#contributor-card-description {
+    /*margin-top: 30px*/
+}
+#invite-main-pane {
+    background: white
+}
+#account-main-pane {
+    background: white;
+    height: 88vh;
+    
 }

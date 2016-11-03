@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     access_token: String,
     token_exchanged: Date,
     stripeId: String,
-    customerId: String
+    customerId: String,
+    card_added: Boolean
 })
 
 module.exports.User = mongoose.model('users', UserSchema)

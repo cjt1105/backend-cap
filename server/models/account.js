@@ -8,7 +8,8 @@ const Account = mongoose.model('accounts', {
     price: Number,
     canAccess: [],
     users: Number,
-    plan: String
+    plan: String,
+    contributors:[]
 })
 
 module.exports = Account;

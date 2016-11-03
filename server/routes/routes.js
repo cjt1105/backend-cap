@@ -153,6 +153,11 @@ router.patch('/api/accounts/addUser', (req,res) => {
     .then(account => {
         Account.update(conditions, { $inc: { users: 1}})
         .then((_account) => {
+            Account.update(conditions, {$addToSet: { contributors: {name: req.body.senderName, picture: req.body.picture}}})
+            .then((updated_account) => {
+                console.log(req.body.fromName)
+                console.log(updated_account)
+            })
             res.send(200)
         })
     })
@@ -164,6 +169,7 @@ router.post('/api/invites', (req,res) => {
     const invite = {
         fromId: fromId.toString(),
         fromName: req.session.passport.user.name,
+        fromPicture: req.session.passport.user.picture,
         toId: req.body.toId,
         accountId: req.body.accountId,
         planId: req.body.planId
@@ -206,7 +212,7 @@ router.post('/api/stripe/createUser', (req,res) => {
                 }
                 console.log(account)
                 updates.stripeId = account.id
-                console.log(updates)
+                updates.card_added = true
                 User.update(conditions,updates)
                 .then(_user => console.log('mongo', _user))
         })

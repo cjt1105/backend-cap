@@ -12,24 +12,49 @@
       </md-toolbar>
 
       <md-content id="sidenav-content">
-        <div class="nav-link"><md-button><a href="#/">Home</a></md-button ></div>
-        <div class="nav-link"><md-button><a target='_self' href="/logout">Logout</a></md-button></div>
-        <div class="nav-link"><md-button ng-show="loggedIn"><a href="#/profile">Profile</a></md-button></div>
-        <div class="nav-link"><md-button ng-show="loggedIn"><a href="#/invites">Invites</a></md-button></div>
+         <div class="nav-link">
+          <a href="#/" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Home
+            </md-button>
+          </a>
+        </div>
+         <div class="nav-link">
+          <a href="/logout" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Logout
+            </md-button>
+          </a>
+        </div>
+        <div class="nav-link">
+          <a href="#/profile" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Profile
+            </md-button>
+          </a>
+        </div>
+        <div class="nav-link">
+          <a href="#/invites" ng-click="toggleLeft()">
+            <md-button ng-show="loggedIn">
+              Requests
+            </md-button>
+          </a>
+        </div>
       </md-content>
 
     </md-sidenav>
 
       <div id="navbar">
-        <!--<div class="container">-->
-          <!--<div  layout-align="top left">-->
-          <!--<div id="hamburger_container">-->
-            <md-button id="hamburger" ng-click="toggleLeft()">Menu</md-button>
-          <!--</div>-->
-          <a id="fb-login-link" layout-align="top right" target="_self" href="/login/facebook"><img id="fbLogin" src="../images/login-button-png-18039.png" alt=""></a>
+        <md-button id="hamburger" ng-click="toggleLeft()">
+          Menu
+        </md-button>
+        <!--<div id="fb-login-button">-->
+          <a layout-align="top right" target="_self" href="/login/facebook">
+            <md-button id="fb-login-button">
+              Login with Facebook
+            </md-button>
+          </a>
         <!--</div>-->
-        <!--</div>-->
-        
       </div>
 
   </section>

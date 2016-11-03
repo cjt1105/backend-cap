@@ -9,7 +9,9 @@ angular.module('streamBuddies')
    $scope.acceptRequest = (request) => {
        const updates = {
            userToAdd: request.fromId,
-           accountId: request.accountId
+           accountId: request.accountId,
+           senderName: request.fromName,
+           picture: request.fromPicture
        }
        const subscriptionDetails = {
            senderId: request.fromId,
@@ -17,6 +19,6 @@ angular.module('streamBuddies')
            senderName: request.fromName
        }
        $http.patch('/api/accounts/addUser', updates)
-       $http.post('/api/accounts/subscribeUser', subscriptionDetails)
+    //    $http.post('/api/accounts/subscribeUser', subscriptionDetails)
    }
 })

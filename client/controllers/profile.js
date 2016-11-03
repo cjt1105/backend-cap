@@ -3,14 +3,27 @@ angular.module('streamBuddies')
 
     $rootScope.user = null,
     $scope.userAccounts = null;
-   axios.get('/api/user/accounts')
-   .then(({data}) => $scope.userAccounts = data)
-   axios.get('/api/user/info')
-   .then(({data})=> {
-       console.log(data)
-       $rootScope.user = data;
-       $scope.$apply()
-   })
+    $scope.contributors = []
+
+    axios.get('/api/user/accounts')
+    .then(({data}) => {
+        data.forEach((item) => {
+            item.contributors.forEach((_item) => {
+                _item.contribution = ((item.price/item.users).toFixed(2))
+                $scope.contributors.push(_item)
+            })
+        })
+        $scope.userAccounts = data
+        console.log(data)
+        })
+    axios.get('/api/user/info')
+    .then(({data})=> {
+        console.log(data)
+        $rootScope.user = data;
+        $scope.cardAdded = !data.card_added
+        console.log($scope.cardAdded)
+        $scope.$apply()
+    })
     // axios.get('/me')
     // .then(({data}) => {
     //     console.log(data.data)
