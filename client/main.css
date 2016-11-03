@@ -188,5 +188,10 @@ h1 {
     
 }
 .account-details {
-    margin-top: 15px
+    margin-top: 25px
+}
+.blue-border {
+    border: 1px solid #1E89D1;
+    width: 90vw;
+    padding-left: 20px
 }
