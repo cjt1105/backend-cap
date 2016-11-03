@@ -23,7 +23,7 @@ angular.module('streamBuddies')
         $rootScope.user = data;
         $scope.cardAdded = !data.card_added
         console.log($scope.cardAdded)
-        // $scope.$apply()
+        $scope.$apply()
     })
 
 
@@ -102,12 +102,10 @@ angular.module('streamBuddies')
                         }
                         $http.post('/api/stripe/createUser', user)
                         .then(({data})=> {
-                            console.log(data)
-                            $rootScope.user = data;
-                            $scope.cardAdded = !data.card_added
-                            console.log($scope.cardAdded)
+                            // $rootScope.user = data;
+                            $scope.cardAdded = !data.card_adde
                             $mdDialog.hide();
-                            $scope.$apply()
+                            $scope.$digest()
                         })
                         })
                     }
