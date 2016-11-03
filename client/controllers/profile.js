@@ -20,6 +20,9 @@ angular.module('streamBuddies')
             console.log($scope.cardAdded)
             $scope.$apply()
         })
+        .then(() => {
+            console.log('got here')
+        })
     })
 
 
