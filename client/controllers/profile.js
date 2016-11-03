@@ -103,10 +103,7 @@ angular.module('streamBuddies')
                         axios.post('/api/stripe/createUser', user)
                         .then(({data})=> {
                             $mdDialog.hide();
-                            $scope.$apply(() => {
-                                $scope.cardAdded = !data.card_added;
-                                console.log('new', $scope.cardAdded)
-                            })
+                            $scope.cardAdded = false
                         })
                         })
                     }
