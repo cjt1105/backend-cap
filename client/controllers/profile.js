@@ -4,7 +4,7 @@ angular.module('streamBuddies')
     $scope.user = null,
     $scope.userAccounts = null;
     $scope.contributors = []
-    $scope.cardAdded = false
+    $scope.cardAdded = null
 
     axios.get('/api/user/accounts')
     .then(({data}) => {
