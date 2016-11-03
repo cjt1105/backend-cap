@@ -6,6 +6,15 @@ angular.module('streamBuddies')
        $scope.accessRequests = data
    })
 
+   $scope.rejectRequest = (request) => {
+       const inviteId = request._id;
+       axios.post('/api/deleteInvite', inviteId)
+       .then((data) => {
+           console.log(data)
+       })
+
+   }
+
    $scope.acceptRequest = (request) => {
        const updates = {
            userToAdd: request.fromId,

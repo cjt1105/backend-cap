@@ -166,6 +166,18 @@ router.patch('/api/accounts/addUser', (req,res) => {
 
 })
 
+router.post('api/deleteInvite', (req,res) => {
+    const inviteId = req.inviteId
+    Invite.findOneAndRemove({_id: inviteId})
+    .then(() => {
+        const conditions = {toId: req.session.passport.user.id}
+        Invite.find(conditions)
+        .then((invites) => {
+            res.json(200, invites)
+        })
+    })
+})
+
 router.post('/api/invites', (req,res) => {
     const fromId = req.session.passport.user.id
     const invite = {
