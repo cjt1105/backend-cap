@@ -214,7 +214,12 @@ router.post('/api/stripe/createUser', (req,res) => {
                 updates.stripeId = account.id
                 updates.card_added = true
                 User.update(conditions,updates)
-                .then(_user => console.log('mongo', _user))
+                .then(() => {
+                    User.findOne(conditions)
+                    .then((_user) => {
+                        res.json(200,_user)
+                    })
+                })
         })
     })
     res.send(200)

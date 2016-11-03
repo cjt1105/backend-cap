@@ -4,8 +4,9 @@ angular.module('streamBuddies')
     $rootScope.user = null,
     $scope.userAccounts = null;
     $scope.contributors = []
+    $scope.cardAdded = false
 
-    $http.get('/api/user/accounts')
+    axios.get('/api/user/accounts')
     .then(({data}) => {
         data.forEach((item) => {
             item.contributors.forEach((_item) => {
@@ -16,11 +17,11 @@ angular.module('streamBuddies')
         $scope.userAccounts = data
         console.log(data)
         })
-    $http.get('/api/user/info')
+    axios.get('/api/user/info')
     .then(({data})=> {
         console.log(data)
         $rootScope.user = data;
-        $scope.cardAdded = !data.card_added
+        $scope.cardAdded = data.card_added
         console.log($scope.cardAdded)
         $scope.$apply()
     })
@@ -102,12 +103,7 @@ angular.module('streamBuddies')
                         }
                         $http.post('/api/stripe/createUser', user)
                         .then(() => {
-                            $http.get('/api/user/info')
-                            .then(({data})=> {
-                                $rootScope.user = data;
-                                $scope.cardAdded = !data.card_added
-                                $scope.$apply()
-                            })
+                            $window.location.reload()
                         })
                         })
                     }
