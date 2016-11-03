@@ -104,7 +104,8 @@ angular.module('streamBuddies')
                         .then(({data})=> {
                             $mdDialog.hide();
                             $scope.$apply(() => {
-                                $scope.cardAdded = !data.card_added
+                                $scope.cardAdded = !data.card_added;
+                                console.log('new', $scope.cardAdded)
                             })
                         })
                         })
