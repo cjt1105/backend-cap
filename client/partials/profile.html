@@ -19,7 +19,7 @@
                         {{account.name}}
                     </a>
                     <h5>Contributors</h5>
-                    <div id="contributor-card" ng-repeat="contributor in contributors">
+                    <div id="contributor-card" ng-repeat="contributor in account.contributors">
                         <img id="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
                         <h5 id="dashboard-account-contrib" >
                             <span id="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
