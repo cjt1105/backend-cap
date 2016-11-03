@@ -23,7 +23,7 @@ angular.module('streamBuddies')
         $rootScope.user = data;
         $scope.cardAdded = !data.card_added
         console.log($scope.cardAdded)
-        $scope.$apply()
+        // $scope.$apply()
     })
 
 
@@ -37,7 +37,6 @@ angular.module('streamBuddies')
         axios.get('/accounts/populate')
         .then(({ data }) => {
             $scope.accountInfo = data
-            // $scope.$apply()
         })
         .then(() => console.log($scope.accountInfo))
 
