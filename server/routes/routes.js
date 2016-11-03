@@ -178,7 +178,7 @@ router.get('/api/invites', (req,res) => {
     Invite.find({
         toId: req.session.passport.user.id
     })
-    .then(invites => res.json(invites))
+    .then(invites => res.json(200, invites))
 })
 
 router.post('/api/stripe/createUser', (req,res) => {
@@ -211,7 +211,7 @@ router.post('/api/stripe/createUser', (req,res) => {
                 .then(_user => console.log('mongo', _user))
         })
     })
-    res.end()
+    res.send(200)
 })
 
 router.post('/api/accounts/subscribeUser', (req,res) => {
