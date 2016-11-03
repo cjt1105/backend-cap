@@ -178,10 +178,12 @@ h1 {
     /*margin-top: 30px*/
 }
 #invite-main-pane {
-    background: white
+    background: white;
+    margin-top: 20px
 }
 #account-main-pane {
     background: white;
     height: 88vh;
+    margin-top: 20px
     
 }
