@@ -19,9 +19,11 @@ angular.module('streamBuddies')
         })
     axios.get('/api/user/info')
     .then(({data})=> {
-        setTimeout(() => {
-            $window.location.reload()
-        }, 500)
+        console.log(data)
+        $scope.user = data;
+        $scope.cardAdded = !data.card_added
+        console.log($scope.cardAdded)
+        $scope.$digest()
     })
 
 
@@ -102,7 +104,7 @@ angular.module('streamBuddies')
                         .then(({data})=> {
                             $mdDialog.hide();
                             $scope.$apply(() => {
-                                $scope.cardAdded = !data.card_adde
+                                $scope.cardAdded = !data.card_added
                             })
                         })
                         })
