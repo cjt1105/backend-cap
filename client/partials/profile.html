@@ -4,7 +4,7 @@
         <div id="left-pane" class="col-md-4">
             <h3> Dashboard</h3>
             <img id="user-image" ng-src="{{user.picture}}" alt="">
-            <md-button ng-disabled="cardAdded" ng-click="newAccount($event)">
+            <md-button id="add-account-button" ng-disabled="cardAdded" ng-click="newAccount($event)">
                 Add Account
             </md-button>
             <md-button ng-click="showPrompt($event)">
