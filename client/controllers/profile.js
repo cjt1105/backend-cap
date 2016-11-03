@@ -100,13 +100,14 @@ angular.module('streamBuddies')
                                 }
                             }
                         }
-                        axios.post('/api/stripe/createUser', user)
-                        .then(({data})=> {
-                            $mdDialog.hide();
-                            $scope.cardAdded = false;
-                            $scope.$digest()
-                        })
-                        })
+                        axios.get('/api/user/info')
+                            .then(({data})=> {
+                                console.log(data)
+                                $scope.user = data;
+                                $scope.cardAdded = !data.card_added
+                                console.log($scope.cardAdded)
+                                $scope.$digest()
+                            })
                     }
               })
            }
