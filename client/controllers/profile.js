@@ -78,7 +78,7 @@ angular.module('streamBuddies')
                     }
                     else {
                         $('#add-account-button').prop('disabled', false)
-                            $mdDialog.hide();
+                        $mdDialog.hide();
                         Stripe.createToken(cardDetails, (stat, res) => {
                             const user = {
                             external_account: response.id,
@@ -102,7 +102,8 @@ angular.module('streamBuddies')
                                 }
                             }
                         }
-                        axios.post('/api/stripe/createUser', user)
+                            axios.post('/api/stripe/createUser', user)
+                        })
                     }
               })
            }
