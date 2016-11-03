@@ -56,6 +56,7 @@ angular.module('streamBuddies')
                 axios.get('/api/user/accounts')
                 .then(({data}) => {
                     $timeout(() => {
+                        $scope.userAccounts = []
                         $scope.userAccounts = data
                         console.log(data)
                         $scope.$apply()
