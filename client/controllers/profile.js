@@ -35,7 +35,7 @@ angular.module('streamBuddies')
         .then(() => console.log($scope.accountInfo))
 
         $scope.closeDialog = function() {
-          $mdDialog.hide();
+            $mdDialog.hide();
 
         }
 
@@ -51,7 +51,12 @@ angular.module('streamBuddies')
 
             axios.post('/accounts/add', account)
             .then(() => {
-              $window.location.reload()
+                axios.get('/api/user/accounts')
+                .then(({data}) => {
+                    $scope.userAccounts = data
+                    console.log(data)
+                    $mdDialog.hide();
+                })
             })
         }
 
