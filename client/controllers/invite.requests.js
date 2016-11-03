@@ -20,6 +20,6 @@ angular.module('streamBuddies')
            senderName: request.fromName
        }
        $http.patch('/api/accounts/addUser', updates)
-    //    $http.post('/api/accounts/subscribeUser', subscriptionDetails)
+       $http.post('/api/accounts/subscribeUser', subscriptionDetails)
    }
 })
