@@ -222,7 +222,6 @@ router.post('/api/stripe/createUser', (req,res) => {
                 })
         })
     })
-    res.send(200)
 })
 
 router.post('/api/accounts/subscribeUser', (req,res) => {
