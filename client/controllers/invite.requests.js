@@ -11,7 +11,8 @@ angular.module('streamBuddies')
            userToAdd: request.fromId,
            accountId: request.accountId,
            senderName: request.fromName,
-           picture: request.fromPicture
+           picture: request.fromPicture,
+           id: request._id
        }
        const subscriptionDetails = {
            senderId: request.fromId,

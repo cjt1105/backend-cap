@@ -148,15 +148,17 @@ router.patch('/api/accounts/addUser', (req,res) => {
     const conditions ={
         _id: req.body.accountId
     }
-
+    const inviteId = req.body._id;
+    console.log(inviteId)
     Account.update(conditions, {$addToSet: { canAccess: req.body.userToAdd}})
     .then(account => {
         Account.update(conditions, { $inc: { users: 1}})
         .then((_account) => {
             Account.update(conditions, {$addToSet: { contributors: {name: req.body.senderName, picture: req.body.picture}}})
             .then((updated_account) => {
-                console.log(req.body.fromName)
-                console.log(updated_account)
+                Invite.findOneAndRemove({_id: inviteId},(invite) => {
+                    console.log(invite)
+                })
             })
             res.send(200)
         })
