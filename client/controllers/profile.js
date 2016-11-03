@@ -1,23 +1,25 @@
 angular.module('streamBuddies')
-.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window) {
+.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window, $timeout) {
 
     $scope.user = null,
     $scope.userAccounts = null;
     $scope.contributors = []
     $scope.cardAdded = null
 
-    axios.get('/api/user/accounts')
-    .then(({data}) => {
-        $scope.userAccounts = data
-        console.log(data)
+    $timeout(() => {
+        axios.get('/api/user/accounts')
+        .then(({data}) => {
+            $scope.userAccounts = data
+            console.log(data)
+            })
+        axios.get('/api/user/info')
+        .then(({data})=> {
+            console.log(data)
+            $scope.user = data;
+            $scope.cardAdded = !data.card_added
+            console.log($scope.cardAdded)
+            // $scope.$apply()
         })
-    axios.get('/api/user/info')
-    .then(({data})=> {
-        console.log(data)
-        $scope.user = data;
-        $scope.cardAdded = !data.card_added
-        console.log($scope.cardAdded)
-        $scope.$apply()
     })
 
 
