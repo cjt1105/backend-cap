@@ -15,6 +15,7 @@ angular.module('streamBuddies')
             })
         axios.get('/api/subscriptions')
         .then(({data}) => {
+            console.log(data)
             $scope.userSubscriptions
         })
         axios.get('/api/user/info')
