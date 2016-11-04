@@ -177,6 +177,8 @@ h1 {
 .dashboard-account-contrib {
     color: black;
     margin-top: 20px;
+    padding-top: 3px;
+    padding-right: 50px
 }
 .contributor-card-image {
     float: left;
