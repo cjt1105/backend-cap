@@ -10,6 +10,11 @@ angular.module('streamBuddies')
     $timeout(() => {
         axios.get('/api/user/accounts')
         .then(({data}) => {
+            data.forEach((item) => {
+                item.contributors.forEach((_item) => {
+                _item.contribution = ((item.price/item.users).toFixed(2))
+                })
+            })
             $scope.userAccounts = data
             console.log(data)
             })
