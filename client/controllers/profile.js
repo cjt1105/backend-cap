@@ -54,18 +54,13 @@ angular.module('streamBuddies')
 
             axios.post('/accounts/add', account)
             .then(() => {
-                $window.location.reload()
-                // axios.get('/api/user/accounts')
-                // .then(({data}) => {
-                //     $scope.userAccounts = []
-                //     $scope.userAccounts = data
-                //     console.log(data)
-                //     $mdDialog.hide();
-                // })
-                // .then(() => {
-                //     _scope.$apply();
-                //     console.log('got there')
-                // })
+                axios.get('/api/user/accounts')
+                .then(({data}) => {
+                    _scope.userAccounts = []
+                    _scope.userAccounts = data
+                    _scope.$apply();
+                    $mdDialog.hide();
+                })
             })
         }
 
