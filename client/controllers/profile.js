@@ -55,14 +55,12 @@ angular.module('streamBuddies')
             .then(() => {
                 axios.get('/api/user/accounts')
                 .then(({data}) => {
-
-                        $scope.$apply(()=>{
-                            $scope.userAccounts = []
-                            $scope.userAccounts = data
-                            console.log(data)
-                        })
+                    $scope.userAccounts = []
+                    $scope.userAccounts = data
+                    console.log(data)
                 })
                 .then(() => {
+                    $scope.$apply()
                     $mdDialog.hide();
                 })
             })
