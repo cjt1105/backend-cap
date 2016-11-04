@@ -19,10 +19,25 @@
                         {{account.name}}
                     </a>
                     <h5>Contributors</h5>
-                    <div id="contributor-card" ng-repeat="contributor in account.contributors">
-                        <img id="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
-                        <h5 id="dashboard-account-contrib" >
-                            <span id="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
+                    <div class="contributor-card" ng-repeat="contributor in account.contributors">
+                        <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
+                        <h5 class="dashboard-account-contrib" >
+                            <span class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <h3 id="subscription-card-title">Accounts</h3>
+            <div id="subscription-card">
+                <div  ng-repeat = 'subscription in userSubscriptions'>
+                    <a id="dashboard-subscription-name" ng-href="#/user/accounts/{{subscription._id}}">
+                        {{subscription.name}}
+                    </a>
+                    <h5>Contributors</h5>
+                    <div class="contributor-card" ng-repeat="contributor in account.contributors">
+                        <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
+                        <h5 class="dashboard-account-contrib" >
+                            <span class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
                         </h5>
                     </div>
                 </div>
