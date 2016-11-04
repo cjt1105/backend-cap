@@ -167,9 +167,9 @@ h1 {
     color: white;
     height: 90vh
 }
-#account-card-title {
+/*#account-card-title {
     color: black;
-}
+}*/
 /*#account-subscription-title {
     color: black;
 }*/
@@ -178,7 +178,7 @@ h1 {
 }
 .contributor-card {
     background: white;
-    min-height: 85px;
+    min-height: 75px;
 }
 .dashboard-account-contrib {
     color: black;
