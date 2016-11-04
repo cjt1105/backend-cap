@@ -18,9 +18,10 @@ angular.module('streamBuddies')
             console.log(data.contributors)
             data.contributors.forEach((item) => {
                 item.contribution = ((data.price/data.users).toFixed(2))
-                console.log("item", item)
             })
             $scope.userSubscriptions = data
+            console.log("yoooooo",$scope.userSubscriptions)
+
         })
         axios.get('/api/user/info')
         .then(({data})=> {
