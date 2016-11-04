@@ -18,7 +18,7 @@ angular.module('streamBuddies')
             console.log(data.contributors)
             data.forEach((item) => {
                 item.contributors.forEach((_item) => {
-                _item.contribution = ((data.price/data.users).toFixed(2))
+                _item.contribution = ((item.price/item.users).toFixed(2))
             })
             })
             $scope.userSubscriptions = data
