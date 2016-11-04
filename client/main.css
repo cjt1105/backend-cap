@@ -161,7 +161,8 @@ h1 {
     background: #6BB3E1;
     margin-top: 20px;
     color: white;
-    height: 90vh
+    height: 90vh;
+    overflow: scroll
 }
 .black {
     color: black
