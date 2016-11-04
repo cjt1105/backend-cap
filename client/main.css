@@ -182,6 +182,7 @@ h1 {
 }
 .dashboard-account-contrib {
     color: black;
+    margin-top: 20px
 }
 .contributor-card-image {
     float: left;
