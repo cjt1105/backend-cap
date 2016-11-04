@@ -36,9 +36,9 @@
                     <h5 class="black">Contributors</h5>
                     <div class="contributor-card" ng-repeat="contributor in subscription.contributors">
                         <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
-                        <h5 class="dashboard-account-contrib" >
-                            <span class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
-                        </h5>
+                        <div class="dashboard-account-contrib" >
+                            <h5 class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
