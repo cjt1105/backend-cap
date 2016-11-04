@@ -13,6 +13,10 @@ angular.module('streamBuddies')
             $scope.userAccounts = data
             console.log(data)
             })
+        axios.get('/api/subscriptions')
+        .then(({data}) => {
+            console.log(data)
+        })
         axios.get('/api/user/info')
         .then(({data})=> {
             console.log(data)

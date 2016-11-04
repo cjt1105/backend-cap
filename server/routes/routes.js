@@ -51,6 +51,14 @@ router.get('/api/user/accounts', ( req, res) => {
     .then(accounts => res.json(accounts))
 })
 
+router.get('/api/subscriptions', (req,res) => {
+    const conditions = {canAccess: req.session.passport.user.id}
+    Account.find(conditions)
+    .then((subscriptions) => {
+        res.json(200, subscriptions)
+    })
+})
+
 router.get('/accounts/populate', (req,res) => {
     AccountInfo.find()
     .then(accounts => {
