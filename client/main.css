@@ -136,13 +136,11 @@ h1 {
 }
 #account-card {
     margin-top: 25px;
-    /*border: 1px solid black;*/
-    padding-top: 20px
+    padding-top: 5px
 }
 #subscription-card {
     margin-top: 25px;
-    /*border: 1px solid black;*/
-    padding-top: 20px
+    padding-top: 5px
 }
 #dashboard-account-name {
     display: block;
