@@ -52,7 +52,7 @@ router.get('/api/user/accounts', ( req, res) => {
 })
 
 router.get('/api/subscriptions', (req,res) => {
-    const conditions = {canAccess: req.session.passport.user.id}
+    const conditions = {canAccess: req.session.passport.user.id.toString()}
     Account.find(conditions)
     .then((subscriptions) => {
         res.json(200, subscriptions)
