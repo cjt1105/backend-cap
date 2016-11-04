@@ -5,6 +5,7 @@ angular.module('streamBuddies')
     $scope.userAccounts = null;
     $scope.contributors = []
     $scope.cardAdded = null
+    const _scope = $scope
 
     $timeout(() => {
         axios.get('/api/user/accounts')
@@ -58,9 +59,7 @@ angular.module('streamBuddies')
                     $scope.userAccounts = []
                     $scope.userAccounts = data
                     console.log(data)
-                })
-                .then(() => {
-                    $scope.$apply()
+                    _scope.$apply()
                     $mdDialog.hide();
                 })
             })
