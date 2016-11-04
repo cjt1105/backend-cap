@@ -27,14 +27,14 @@
                     </div>
                 </div>
             </div>
-            <h3 id="subscription-card-title">Accounts</h3>
+            <h3 id="subscription-card-title">Subscriptions</h3>
             <div id="subscription-card">
                 <div  ng-repeat = 'subscription in userSubscriptions'>
                     <a id="dashboard-subscription-name" ng-href="#/user/accounts/{{subscription._id}}">
                         {{subscription.name}}
                     </a>
                     <h5>Contributors</h5>
-                    <div class="contributor-card" ng-repeat="contributor in account.contributors">
+                    <div class="contributor-card" ng-repeat="contributor in subscription.contributors">
                         <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
                         <h5 class="dashboard-account-contrib" >
                             <span class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
