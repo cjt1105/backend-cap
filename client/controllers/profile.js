@@ -7,7 +7,7 @@ angular.module('streamBuddies')
     $scope.cardAdded = null
     const _scope = $scope
 
-    $timeout(() => {
+    // $timeout(() => {
         axios.get('/api/user/accounts')
         .then(({data}) => {
             data.forEach((item) => {
@@ -38,7 +38,7 @@ angular.module('streamBuddies')
             console.log($scope.cardAdded)
             $scope.$apply()
         })
-    })
+    // })
 
 
 
