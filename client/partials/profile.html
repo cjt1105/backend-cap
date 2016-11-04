@@ -18,7 +18,7 @@
                     <a id="dashboard-account-name" ng-href="#/user/accounts/{{account._id}}">
                         {{account.name}}
                     </a>
-                    <h5>Contributors</h5>
+                    <h5 class="black">Contributors</h5>
                     <div class="contributor-card" ng-repeat="contributor in account.contributors">
                         <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
                         <h5 class="dashboard-account-contrib" >
@@ -33,7 +33,7 @@
                     <a id="dashboard-subscription-name" ng-href="#/user/accounts/{{subscription._id}}">
                         {{subscription.name}}
                     </a>
-                    <h5>Contributors</h5>
+                    <h5 class="black">Contributors</h5>
                     <div class="contributor-card" ng-repeat="contributor in subscription.contributors">
                         <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
                         <h5 class="dashboard-account-contrib" >

@@ -170,8 +170,11 @@ h1 {
 #account-card-title {
     color: black;
 }
-#account-subscription-title {
+/*#account-subscription-title {
     color: black;
+}*/
+.black {
+    color: black
 }
 .contributor-card {
     background: white;
