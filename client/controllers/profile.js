@@ -16,7 +16,7 @@ angular.module('streamBuddies')
         axios.get('/api/subscriptions')
         .then(({data}) => {
             console.log(data)
-            $scope.userSubscriptions
+            $scope.userSubscriptions = data
         })
         axios.get('/api/user/info')
         .then(({data})=> {
