@@ -38,7 +38,7 @@ angular.module('streamBuddies')
             console.log($scope.cardAdded)
             $scope.$digest()
         })
-    }, 400)
+    }, 200)
 
 
 
