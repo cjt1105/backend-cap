@@ -2,7 +2,6 @@ const { Router } = require('express');
 const router = Router();
 const passport = require('passport')
 const config = require('../middlewares/config/passport')(passport);
-const AccountInfo = require('../models/account.info');
 const Account = require('../models/account');
 const { User } = require('../models/user')
 const auth = require('../middlewares/config/auth.js');
@@ -12,6 +11,11 @@ const request = require('request')
 const Invite = require('../models/invite');
 const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
 const timestamp = require('unix-timestamp')
+
+//imports 
+
+const Accounts = require('../controllers/account.js')
+
 
 
 router.get('/', (req, res) => {
@@ -59,16 +63,7 @@ router.get('/api/subscriptions', (req,res) => {
     })
 })
 
-router.get('/accounts/populate', (req,res) => {
-    AccountInfo.find()
-    .then(accounts => {
-        // fetch accounts and map them to only include name and price
-        const mappedAccounts = accounts.map((index)=> {
-            return { name: index.name, price: index.price}
-        })
-        res.json(mappedAccounts)
-    })
-})
+router.get('/accounts/populate', Accounts.populate )
 
 router.post('/accounts/add', (req,res) => {
     console.log(req.body)
