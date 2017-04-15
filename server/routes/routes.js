@@ -66,7 +66,6 @@ router.get('/api/subscriptions', (req,res) => {
 router.get('/accounts/populate', Accounts.populate )
 
 router.post('/accounts/add', (req,res) => {
-    console.log(req.body)
     const planId = `${req.body.name}_${req.session.passport.user.id}`
     req.body.owner = req.session.passport.user.id.toString();
     req.body.plan = planId;
@@ -92,7 +91,7 @@ router.post('/accounts/add', (req,res) => {
                 console.log(err)
             }
             else {
-                console.log(plan)
+                res.sendStatus(200)
             }
         })
         })
