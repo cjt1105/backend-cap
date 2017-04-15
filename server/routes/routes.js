@@ -2,8 +2,6 @@ const { Router } = require('express');
 const router = Router();
 const passport = require('passport')
 const config = require('../middlewares/config/passport')(passport);
-const Account = require('../models/account');
-const { User } = require('../models/user')
 const auth = require('../middlewares/config/auth.js');
 const graph = require('fbgraph');
 const { getDate , shouldExchange } = require('../helpers/date')
@@ -11,6 +9,8 @@ const request = require('request')
 const Invite = require('../models/invite');
 const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
 const timestamp = require('unix-timestamp')
+const Account = require('../models/account');
+const { User } = require('../models/user')
 
 //imports 
 
@@ -65,39 +65,7 @@ router.get('/api/subscriptions', (req,res) => {
 
 router.get('/accounts/populate', Accounts.populate )
 
-router.post('/accounts/add', (req,res) => {
-    const planId = `${req.body.name}_${req.session.passport.user.id}`
-    req.body.owner = req.session.passport.user.id.toString();
-    req.body.plan = planId;
-    Account.create(req.body)
-    .then(account => {
-        let stripeId;
-        User.findOne({id: req.session.passport.user.id})
-        .then(user => {
-            stripeId = user.stripeId
-        })
-        .then(() => {
-            let total = Math.round((account.price/2)*100)
-            stripe.plans.create({
-            amount: total,
-            interval: "month",
-            name: planId,
-            id: planId,
-            currency: 'usd',
-            trial_period_days: 1,
-
-        }, {stripe_account: stripeId}, (err,plan) => {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                res.sendStatus(200)
-            }
-        })
-        })
-    })
-    res.end()
-})
+router.post('/accounts/add', Accounts.add )
 
 router.get('/api/user/accounts/:id', (req, res) => {
     const accountId = req.params.id;

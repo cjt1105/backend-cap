@@ -99,7 +99,7 @@ angular.module('streamBuddies')
               }
               Stripe.card.createToken(cardDetails, (status, response) => {
                     if (response.error) { // Problem!
-
+                        console.log(response.error)
                     }
                     else {
                         $('#add-account-button').prop('disabled', false)
