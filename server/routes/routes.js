@@ -11,16 +11,11 @@ const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
 const timestamp = require('unix-timestamp')
 const Account = require('../models/account');
 const { User } = require('../models/user')
+const Users = require('../controllers/user.js')
 
 //imports 
 
 const Accounts = require('../controllers/account.js')
-
-
-
-router.get('/', (req, res) => {
-    console.log(req.session)
-})
 
 router.get('/loggedIn', (req,res) => {
     if(req.session.passport != undefined || null) {
@@ -38,22 +33,17 @@ router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login', successRedirect: '/' }))
 
-router.get('/api/user/info', (req, res) => {
-    console.log(req.session.passport.user.id)
-    const conditions = {
-        id: req.session.passport.user.id
-    }
-    User.findOne(conditions)
-    .then(user => res.json(user))
-})
+// User routes
 
-router.get('/api/user/accounts', ( req, res) => {
-    const id = req.session.passport.user.id;
-    Account.find({
-        owner: id
-    })
-    .then(accounts => res.json(accounts))
-})
+router.get('/api/user/info', Users.fetchUserInfo)
+
+router.get('/api/user/accounts', Users.fetchAccounts )
+
+//Account routes
+
+router.get('/accounts/populate', Accounts.populate )
+
+router.post('/accounts/add', Accounts.add )
 
 router.get('/api/subscriptions', (req,res) => {
     const conditions = {canAccess: req.session.passport.user.id.toString()}
@@ -63,33 +53,9 @@ router.get('/api/subscriptions', (req,res) => {
     })
 })
 
-router.get('/accounts/populate', Accounts.populate )
 
-router.post('/accounts/add', Accounts.add )
 
-router.get('/api/user/accounts/:id', (req, res) => {
-    const accountId = req.params.id;
-    console.log(accountId)
-    const uid = req.session.passport.user.id
-    let canAccess = false
-    Account.findOne({_id: accountId})
-    .then((account) => {
-        if(account.owner.toString() === uid.toString()){
-            canAccess = true;
-            res.json(account)
-        } else {
-            if(account.canAccess.length > 0){
-                account.canAccess.forEach(item => {
-                    if(item.toString() === uid.toString()){
-                        res.json(account)
-                    }
-                })
-            } else {
-                res.json({message: null})
-            }
-        }
-    })
-})
+router.get('/api/user/accounts/:id', Users.fetchSingleAccount)
 
 router.get('/logout', (req,res) => {
     req.logout();
