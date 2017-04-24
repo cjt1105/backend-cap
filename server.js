@@ -9,7 +9,6 @@ const RedisStore = require('connect-redis')(session)
 
 const port = process.env.PORT || 3000;
 
-// app.set('view engine', 'pug');
 
 app.use(express.static('client'))
 app.use(passport.initialize());

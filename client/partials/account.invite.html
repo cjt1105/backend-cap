@@ -1,12 +1,12 @@
-<div  class="container">
+<div  class="container account-main-pane">
     <div id="invite-main-pane">
         <h4>{{userAccount.name}} ${{userAccount.price}}</h4>
         <h5>To join this account:</h5>
         <h5>1. Copy link below</h5>
-        <h5>2. Login and add a card from dashboard</h5>
+        <h5>2. Login and add a card from your dashboard</h5>
         <h5>3. Return to this page and click the "Request Access" button below</h5>
         <h5>4. When the request is accepted you will have access to the login info and be charged to price above on a monthly basis</h5>
-        <md-input-container>
+        <md-input-container class="blue-border">
                 <h5>Invite Link</h5>
             <div>
             <input class="invite-link" value="https://still-ocean-92666.herokuapp.com/#/user/accounts/invite/{{userAccount._id}}">
@@ -14,7 +14,11 @@
                 Copy to clipboard
             </md-button>
             </div>
-        </md-button>
-        <md-button ng-click="sendInviteRequest(userAccount.owner, userAccount.plan)" >Request Access</md-button>
+        </md-input-container>
+        <md-input-container class="blue-border">
+            <md-button ng-click="sendInviteRequest(userAccount.owner, userAccount.plan)" >
+                Request Access
+            </md-button>
+        </md-input-container>
     </div>
 </div>

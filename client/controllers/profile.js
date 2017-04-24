@@ -1,33 +1,48 @@
 angular.module('streamBuddies')
-.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window) {
+.controller('ProfileCtrl', function($scope, $rootScope, $mdDialog, $http, $window, $timeout) {
 
-    $rootScope.user = null,
+    $scope.user = null,
     $scope.userAccounts = null;
     $scope.contributors = []
+    $scope.cardAdded = null
+    const _scope = $scope
 
-    axios.get('/api/user/accounts')
-    .then(({data}) => {
-        data.forEach((item) => {
-            item.contributors.forEach((_item) => {
+    $timeout(() => {
+        axios.get('/api/user/accounts')
+        .then(({data}) => {
+            data.forEach((item) => {
+                item.contributors.forEach((_item) => {
                 _item.contribution = ((item.price/item.users).toFixed(2))
-                $scope.contributors.push(_item)
+                })
             })
-        })
-        $scope.userAccounts = data
-        console.log(data)
-        })
-    axios.get('/api/user/info')
-    .then(({data})=> {
-        console.log(data)
-        $rootScope.user = data;
-        $scope.cardAdded = !data.card_added
-        console.log($scope.cardAdded)
-        $scope.$apply()
-    })
-    // axios.get('/me')
-    // .then(({data}) => {
-    //     console.log(data.data)
-    // })
+            $scope.userAccounts = data
+            console.log(data)
+            })
+            .then(() => {
+                axios.get('/api/subscriptions')
+                .then(({data}) => {
+                    console.log(data.contributors)
+                    data.forEach((item) => {
+                        item.contributors.forEach((_item) => {
+                            _item.contribution = ((item.price/item.users).toFixed(2))
+                        })
+                    })
+                    $scope.userSubscriptions = data
+                    console.log("yoooooo",$scope.userSubscriptions)
+
+                })
+                .then(() => {
+                    axios.get('/api/user/info')
+                    .then(({data})=> {
+                        console.log(data)
+                        $scope.user = data;
+                        $scope.cardAdded = !data.card_added
+                        console.log($scope.cardAdded)
+                        $scope.$digest()
+                    })
+                })
+            })
+    }, 300)
 
 
 
@@ -40,12 +55,11 @@ angular.module('streamBuddies')
         axios.get('/accounts/populate')
         .then(({ data }) => {
             $scope.accountInfo = data
-            // $scope.$apply()
         })
         .then(() => console.log($scope.accountInfo))
 
         $scope.closeDialog = function() {
-          $mdDialog.hide();
+            $mdDialog.hide();
 
         }
 
@@ -61,7 +75,14 @@ angular.module('streamBuddies')
 
             axios.post('/accounts/add', account)
             .then(() => {
-              $window.location.reload()
+                axios.get('/api/user/accounts')
+                .then(({data}) => {
+                    _scope.userAccounts = []
+                    _scope.userAccounts = data
+                    _scope.$apply();
+                    console.log(_scope.userAccounts)
+                    $mdDialog.hide();
+                })
             })
         }
 
@@ -81,6 +102,8 @@ angular.module('streamBuddies')
 
                     }
                     else {
+                        $('#add-account-button').prop('disabled', false)
+                        $mdDialog.hide();
                         Stripe.createToken(cardDetails, (stat, res) => {
                             const user = {
                             external_account: response.id,
@@ -104,10 +127,7 @@ angular.module('streamBuddies')
                                 }
                             }
                         }
-                        $http.post('/api/stripe/createUser', user)
-                        .then(() => {
-                            $window.location.reload()
-                        })
+                            axios.post('/api/stripe/createUser', user)
                         })
                     }
               })

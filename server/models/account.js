@@ -6,7 +6,7 @@ const Account = mongoose.model('accounts', {
     password: String,
     owner: String,
     price: Number,
-    canAccess: [],
+    canAccess: [String],
     users: Number,
     plan: String,
     contributors:[]

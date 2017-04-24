@@ -135,11 +135,16 @@ h1 {
     margin-top: 25px
 }
 #account-card {
-    margin-top: 25px;
-    /*border: 1px solid black;*/
-    padding-top: 20px
+    padding-top: 5px
+}
+#subscription-card {
+    padding-top: 5px
 }
 #dashboard-account-name {
+    display: block;
+    text-align: center;
+}
+#dashboard-subscription-name {
     display: block;
     text-align: center;
 }
@@ -156,32 +161,46 @@ h1 {
     background: #6BB3E1;
     margin-top: 20px;
     color: white;
-    height: 90vh
+    height: 90vh;
+    overflow: scroll
 }
-#account-card-title {
-    color: black;
+.black {
+    color: black
 }
-#contributor-card {
+.contributor-card {
     background: white;
-    min-height: 85px;
+    min-height: 75px;
 }
-#dashboard-account-contrib {
+.dashboard-account-contrib {
     color: black;
+    margin-top: 20px;
+    padding-top: 3px;
+    padding-right: 50px
 }
-#contributor-card-image {
+.contributor-card-image {
     float: left;
     margin-left: 10px;
     margin-top: 20px;
     border-radius: 5%
 }
-#contributor-card-description {
-    /*margin-top: 30px*/
+.contributor-card-description {
+    margin-top: 30px
 }
 #invite-main-pane {
-    background: white
+    background: white;
+    margin-top: 20px
 }
-#account-main-pane {
+.account-main-pane {
     background: white;
     height: 88vh;
+    margin-top: 20px
     
+}
+.account-details {
+    margin-top: 25px
+}
+.blue-border {
+    border: 1px solid #1E89D1;
+    width: 90vw;
+    padding-left: 20px
 }

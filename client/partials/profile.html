@@ -4,7 +4,7 @@
         <div id="left-pane" class="col-md-4">
             <h3> Dashboard</h3>
             <img id="user-image" ng-src="{{user.picture}}" alt="">
-            <md-button ng-disabled="cardAdded" ng-click="newAccount($event)">
+            <md-button id="add-account-button" ng-disabled="cardAdded" ng-click="newAccount($event)">
                 Add Account
             </md-button>
             <md-button ng-click="showPrompt($event)">
@@ -18,12 +18,27 @@
                     <a id="dashboard-account-name" ng-href="#/user/accounts/{{account._id}}">
                         {{account.name}}
                     </a>
-                    <h5>Contributors</h5>
-                    <div id="contributor-card" ng-repeat="contributor in contributors">
-                        <img id="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
-                        <h5 id="dashboard-account-contrib" >
-                            <span id="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</span>
-                        </h5>
+                    <h5 class="black">Contributors</h5>
+                    <div class="contributor-card" ng-repeat="contributor in account.contributors">
+                        <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
+                        <div class="dashboard-account-contrib" >
+                            <h5 class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 id="subscription-card-title">Subscriptions</h3>
+            <div id="subscription-card">
+                <div  ng-repeat = 'subscription in userSubscriptions'>
+                    <a id="dashboard-subscription-name" ng-href="#/user/accounts/{{subscription._id}}">
+                        {{subscription.name}}
+                    </a>
+                    <h5 class="black">Contributors</h5>
+                    <div class="contributor-card" ng-repeat="contributor in subscription.contributors">
+                        <img class="contributor-card-image" ng-src="{{contributor.picture}}" alt="">
+                        <div class="dashboard-account-contrib" >
+                            <h5 class="contributor-card-description">{{contributor.name}} {{contributor.contribution}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,6 @@ const { Router } = require('express');
 const router = Router();
 const passport = require('passport')
 const config = require('../middlewares/config/passport')(passport);
-const AccountInfo = require('../models/account.info');
 const Account = require('../models/account');
 const { User } = require('../models/user')
 const auth = require('../middlewares/config/auth.js');
@@ -12,6 +11,11 @@ const request = require('request')
 const Invite = require('../models/invite');
 const stripe = require('stripe')('sk_test_ZaWMUUXlFjKGoG4VyftGyCQ9')
 const timestamp = require('unix-timestamp')
+
+//imports 
+
+const Accounts = require('../controllers/account.js')
+
 
 
 router.get('/', (req, res) => {
@@ -51,19 +55,17 @@ router.get('/api/user/accounts', ( req, res) => {
     .then(accounts => res.json(accounts))
 })
 
-router.get('/accounts/populate', (req,res) => {
-    AccountInfo.find()
-    .then(accounts => {
-        // fetch accounts and map them to only include name and price
-        const mappedAccounts = accounts.map((index)=> {
-            return { name: index.name, price: index.price}
-        })
-        res.json(mappedAccounts)
+router.get('/api/subscriptions', (req,res) => {
+    const conditions = {canAccess: req.session.passport.user.id.toString()}
+    Account.find(conditions)
+    .then((subscriptions) => {
+        res.json(200, subscriptions)
     })
 })
 
+router.get('/accounts/populate', Accounts.populate )
+
 router.post('/accounts/add', (req,res) => {
-    console.log(req.body)
     const planId = `${req.body.name}_${req.session.passport.user.id}`
     req.body.owner = req.session.passport.user.id.toString();
     req.body.plan = planId;
@@ -89,7 +91,7 @@ router.post('/accounts/add', (req,res) => {
                 console.log(err)
             }
             else {
-                console.log(plan)
+                res.sendStatus(200)
             }
         })
         })
@@ -148,20 +150,34 @@ router.patch('/api/accounts/addUser', (req,res) => {
     const conditions ={
         _id: req.body.accountId
     }
-
+    const inviteId = req.body.id;
+    console.log(inviteId)
     Account.update(conditions, {$addToSet: { canAccess: req.body.userToAdd}})
     .then(account => {
         Account.update(conditions, { $inc: { users: 1}})
         .then((_account) => {
             Account.update(conditions, {$addToSet: { contributors: {name: req.body.senderName, picture: req.body.picture}}})
             .then((updated_account) => {
-                console.log(req.body.fromName)
-                console.log(updated_account)
+                Invite.findOneAndRemove({_id: inviteId},(invite) => {
+                    console.log(invite)
+                })
             })
             res.send(200)
         })
     })
 
+})
+
+router.post('api/deleteInvite', (req,res) => {
+    const inviteId = req.inviteId
+    Invite.findOneAndRemove({_id: inviteId})
+    .then(() => {
+        const conditions = {toId: req.session.passport.user.id}
+        Invite.find(conditions)
+        .then((invites) => {
+            res.json(200, invites)
+        })
+    })
 })
 
 router.post('/api/invites', (req,res) => {
@@ -214,10 +230,14 @@ router.post('/api/stripe/createUser', (req,res) => {
                 updates.stripeId = account.id
                 updates.card_added = true
                 User.update(conditions,updates)
-                .then(_user => console.log('mongo', _user))
+                .then((user) => {
+                    User.findOne(conditions)
+                    .then((_user) => {
+                        res.json(200,_user)
+                    })
+                })
         })
     })
-    res.send(200)
 })
 
 router.post('/api/accounts/subscribeUser', (req,res) => {

@@ -6,12 +6,22 @@ angular.module('streamBuddies')
        $scope.accessRequests = data
    })
 
+   $scope.rejectRequest = (request) => {
+       const inviteId = request._id;
+       axios.post('/api/deleteInvite', inviteId)
+       .then((data) => {
+           console.log(data)
+       })
+
+   }
+
    $scope.acceptRequest = (request) => {
        const updates = {
            userToAdd: request.fromId,
            accountId: request.accountId,
            senderName: request.fromName,
-           picture: request.fromPicture
+           picture: request.fromPicture,
+           id: request._id
        }
        const subscriptionDetails = {
            senderId: request.fromId,
@@ -19,6 +29,6 @@ angular.module('streamBuddies')
            senderName: request.fromName
        }
        $http.patch('/api/accounts/addUser', updates)
-    //    $http.post('/api/accounts/subscribeUser', subscriptionDetails)
+       $http.post('/api/accounts/subscribeUser', subscriptionDetails)
    }
 })

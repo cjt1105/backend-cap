@@ -1,24 +1,28 @@
-<div id="account-main-pane" class="container">
+<div class="container account-main-pane">
     <h1>{{myAccount.name}}</h1>
-    <h3>{{myAccount.email}}</h3>
-    <h3>{{myAccount.password}}</h3>
+    <div class="account-details">
+        <h4>Email: </h4>
+        <h3> {{myAccount.email}}</h3>
+    </div>
+    <div class="account-details">
+        <h4>Password: </h4>
+        <h3>{{myAccount.password}}</h3>
+    </div>
 
     <div class="invite-clipboard">
-        <md-input-container>
+        <md-input-container class="blue-border">
             <h3>Invite Link</h3>
-        <div>
-        <input id="invite-link" value="https://still-ocean-92666.herokuapp.com/#/user/accounts/invite/{{myAccount._id}}">
-        <md-button class="clipboard-btn" data-clipboard-target="#invite-link">
-            Copy to clipboard
-        </md-button>
+            <input id="invite-link" value="https://still-ocean-92666.herokuapp.com/#/user/accounts/invite/{{myAccount._id}}">
+            <md-button class="clipboard-btn" data-clipboard-target="#invite-link">
+                    Copy to clipboard
+            </md-button>
+        </md-input-container>
+    </div>
+        <md-input-container class="blue-border">
          <div>
             <md-button ng-show="ownsAccount" ng-click="share()">
                 Share on Facebook
             </md-button>
         </div>
-        </div>
         </md-input-container>
-    <!-- Trigger -->
-    </div>
-
 </div>
