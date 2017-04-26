@@ -48,7 +48,15 @@ angular.module('streamBuddies')
 
 
     function DialogController($scope, $mdDialog, $http) {
+        // Test card data
         $scope.number = 4000056655665556
+        $scope.country = "US"
+        $scope.city = "Here"
+        $scope.address = "123 Here Ln"
+        $scope.zip = 12345
+        $scope.cvc = 255
+        $scope.exp_month = 12
+        $scope.exp_year = 2018
         $scope.account = { name: null, price: null}
         ///populate account options for select tag
         $scope.accountInfo = ""

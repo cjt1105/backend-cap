@@ -13,9 +13,9 @@ const Account = require('../models/account');
 const { User } = require('../models/user')
 const Users = require('../controllers/user.js')
 
-//imports 
-
+//imports
 const Accounts = require('../controllers/account.js')
+const  Invites  = require('../controllers/invite.js')
 
 router.get('/loggedIn', (req,res) => {
     if(req.session.passport != undefined || null) {
@@ -25,33 +25,22 @@ router.get('/loggedIn', (req,res) => {
     }
 })
 
-router.get('/session', (req,res) => {
-   console.log(req.session)
-})
-
+//Auth routes
 router.get('/login/facebook', passport.authenticate('facebook', { scope : ['user_friends', 'publish_actions'], display: 'popup' }))
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login', successRedirect: '/' }))
 
 // User routes
-
 router.get('/api/user/info', Users.fetchUserInfo)
 
 router.get('/api/user/accounts', Users.fetchAccounts )
 
-//Account routes
+router.get('/api/subscriptions', Users.fetchSubcriptions)
 
+//Account routes
 router.get('/accounts/populate', Accounts.populate )
 
 router.post('/accounts/add', Accounts.add )
-
-router.get('/api/subscriptions', (req,res) => {
-    const conditions = {canAccess: req.session.passport.user.id.toString()}
-    Account.find(conditions)
-    .then((subscriptions) => {
-        res.json(200, subscriptions)
-    })
-})
 
 
 
@@ -63,150 +52,19 @@ router.get('/logout', (req,res) => {
     res.redirect('/')
 })
 
-/// browse routes
+router.get('/api/accounts/invite/:id', Invites.fetchOne )
 
-// router.get('/me', (req,res) => {
-//     request(`https://graph.facebook.com/me/friends?access_token=${req.session.passport.user.access_token}`, (err, response, body) => {
-//        res.send(body)
-//     })
-// })
+router.patch('/api/accounts/addUser', Accounts.addUser )
 
-router.get('/api/accounts/invite/:id', (req,res) => {
-    Account.findOne({_id: req.params.id})
-    .then(account => {
-        console.log(account)
-        const response = {_id: account._id, name: account.name, owner: account.owner, plan: account.plan, price: (account.price/(account.users + 1)).toFixed(2)}
-        res.json(response)
-    })
-})
+router.post('api/deleteInvite', Invites.delete )
 
-router.patch('/api/accounts/addUser', (req,res) => {
-    const conditions ={
-        _id: req.body.accountId
-    }
-    const inviteId = req.body.id;
-    console.log(inviteId)
-    Account.update(conditions, {$addToSet: { canAccess: req.body.userToAdd}})
-    .then(account => {
-        Account.update(conditions, { $inc: { users: 1}})
-        .then((_account) => {
-            Account.update(conditions, {$addToSet: { contributors: {name: req.body.senderName, picture: req.body.picture}}})
-            .then((updated_account) => {
-                Invite.findOneAndRemove({_id: inviteId},(invite) => {
-                    console.log(invite)
-                })
-            })
-            res.send(200)
-        })
-    })
+router.post('/api/invites', Invites.add )
 
-})
+router.get('/api/invites', Invites.fetchAll )
 
-router.post('api/deleteInvite', (req,res) => {
-    const inviteId = req.inviteId
-    Invite.findOneAndRemove({_id: inviteId})
-    .then(() => {
-        const conditions = {toId: req.session.passport.user.id}
-        Invite.find(conditions)
-        .then((invites) => {
-            res.json(200, invites)
-        })
-    })
-})
+router.post('/api/stripe/createUser', Users.createStripeUser )
 
-router.post('/api/invites', (req,res) => {
-    const fromId = req.session.passport.user.id
-    const invite = {
-        fromId: fromId.toString(),
-        fromName: req.session.passport.user.name,
-        fromPicture: req.session.passport.user.picture,
-        toId: req.body.toId,
-        accountId: req.body.accountId,
-        planId: req.body.planId
-    }
-    console.log(invite)
-    Invite.create(invite)
-    .then(_invite => res.end())
-
-})
-
-router.get('/api/invites', (req,res) => {
-    Invite.find({
-        toId: req.session.passport.user.id
-    })
-    .then(invites => res.json(200, invites))
-})
-
-router.post('/api/stripe/createUser', (req,res) => {
-    console.log(req.body)
-    /// grab token that was temporarily stored in tos_date and set date to correct value
-    const token = req.body.tos_acceptance.date;
-    req.body.tos_acceptance.date = Math.floor(Date.now() / 1000);
-    req.body.tos_acceptance.ip = req.connection.remoteAddress;
-    // create new account
-        let updates = {};
-        const conditions = {id: req.session.passport.user.id};
-        stripe.customers.create({
-            source: token,
-            description: `${req.body.legal_entity.first_name} ${req.body.legal_entity.last_name}`
-        }, (err, customer) => {
-            if(err){
-                console.log(err)
-            }
-            stripe.tokens.create({card: customer.default_source })
-            updates.customerId = customer.id
-
-            stripe.accounts.create(req.body, (err, account) => {
-                if(err) {
-                    console.log(err)
-                }
-                console.log(account)
-                updates.stripeId = account.id
-                updates.card_added = true
-                User.update(conditions,updates)
-                .then((user) => {
-                    User.findOne(conditions)
-                    .then((_user) => {
-                        res.json(200,_user)
-                    })
-                })
-        })
-    })
-})
-
-router.post('/api/accounts/subscribeUser', (req,res) => {
-    User.findOne({id: req.body.senderId})
-    .then(user => {
-        stripe.tokens.create({
-            customer: `${user.customerId}`
-        },{stripe_account: req.session.passport.user.stripeId}, (err, token) => {
-            if(err) {
-                console.log(err)
-            }
-            stripe.customers.create({
-                source: token.id,
-                description: `${req.body.senderName}`
-            },{stripe_account: req.session.passport.user.stripeId}, (err, customer) => {
-                if(err) {
-                    console.log(err)
-                }
-                else {
-                    // console.log('timestamp!!!!', Math.floor(timestamp.now() + 15 ))
-                    stripe.subscriptions.create({
-                        customer: `${customer.id}`,
-                        plan: `${req.body.planId}`
-                    }, {stripe_account: req.session.passport.user.stripeId}, (err, subscription) => {
-                        if(err) {
-                            console.log(err)
-                        }
-                        // console.log(subscription)
-                        res.end()
-                    })
-                }
-            })
-        })
-    })
-})
+router.post('/api/accounts/subscribeUser', Accounts.subscribeUser )
 
 router.get('/delete/:stripeId', (req,res) => {
     const stripeId = req.params.stripeId
