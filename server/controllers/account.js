@@ -17,7 +17,7 @@ module.exports.populate = (req, res, next) => {
   })
 }
 
-module.exports.add = (req, res, next) => {
+module.exports.create = (req, res, next) => {
     const planId = `${req.body.name}_${req.session.passport.user.id}`
     req.body.owner = req.session.passport.user.id.toString();
     req.body.plan = planId;
@@ -27,7 +27,6 @@ module.exports.add = (req, res, next) => {
         User.findOne({id: req.session.passport.user.id})
         .then(user => {
             stripeId = user.stripeId
-            console.log(stripeId)
         })
         .then(() => {
             let total = Math.round((account.price/2)*100)
